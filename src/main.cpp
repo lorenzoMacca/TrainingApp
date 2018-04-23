@@ -27,7 +27,9 @@ int main(){
     
     cout << res << endl;
     
-    Training t(d1);
+    TrainingDuration* td = new TrainingDuration(60);
+    
+    Training t(d1, td);
     List l;
     l.pushBack(&t);
     

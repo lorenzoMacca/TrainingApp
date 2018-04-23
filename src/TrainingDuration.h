@@ -16,7 +16,7 @@ public:
     TrainingDuration(unsigned int );
     virtual string toString() const;
     virtual int compareTo(Object*) const;
-    float getDuration(int type=MINUTES)const;
+    int getDuration(int type=MINUTES)const;
     void setDuration(unsigned int);
     
 };

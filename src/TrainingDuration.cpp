@@ -5,7 +5,8 @@ TrainingDuration::TrainingDuration(unsigned int d){
 }
 
 string TrainingDuration::toString() const{
-    string res =  "[TrainingDuration ";
+    string res =  "[TrainingDuration: ";
+    res += to_string(this->getDuration(MINUTES));
     res += "]";
     return res;
 }
@@ -19,7 +20,7 @@ int TrainingDuration::compareTo(Object* o) const{
     return 0;
 }
 
-float TrainingDuration::getDuration(int type)const{
+int TrainingDuration::getDuration(int type)const{
     if(type == HOURS){
             return this->m_durationInMin/60.0;
     }

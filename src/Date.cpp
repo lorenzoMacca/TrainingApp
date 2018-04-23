@@ -4,7 +4,7 @@
 string Date::toString() const{
     tm *ltm = localtime(&this->m_timeT);
     stringstream res;
-    res << "["
+    res << "[Date: "
         << 1900 + ltm->tm_year << this->m_dateSeparator
         << 1 + ltm->tm_mon << this->m_dateSeparator
         << ltm->tm_mday

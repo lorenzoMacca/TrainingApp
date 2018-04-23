@@ -6,8 +6,9 @@ Training::Training(Date* d, TrainingDuration* t){
 }
 
 string Training::toString() const{
-    string res =  "[Training ";
-    res += this->m_date->toString();
+    string res =  "[Training: ";
+    res += this->m_date->toString() + " - ";
+    res += this->m_trainingDuration->toString();
     res += "]";
     return res;
 }
@@ -35,4 +36,14 @@ void Training::setTrainingDuration(TrainingDuration* t){
     if(t!=0){
         this->m_trainingDuration = t;
     }
+}
+
+DbObject* Training::getFromDB(){
+    //TODO: implementation is missing
+    return NULL;
+}
+
+bool Training::writeToDB(){
+    //TODO: implementation is missing
+    return false;
 }
