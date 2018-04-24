@@ -2,6 +2,7 @@
 #include "Training.h"
 #include "Date.h"
 #include "iostream"
+#include "db/DbManager.h"
 
 #include<unistd.h>
 
@@ -34,6 +35,12 @@ int main(){
     l.pushBack(&t);
     
     cout << t.toString() << endl;
+    
+    DbManager* dbManager = new DbManager;
+    cout << dbManager->toString() << endl;
+    
+    dbManager->connect();
+    dbManager->disconnect();
     
     return 0;
 }
