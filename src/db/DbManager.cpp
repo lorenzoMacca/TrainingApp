@@ -17,10 +17,18 @@ int DbManager::compareTo(Object* o) const{
 }
 
 bool DbManager::connect(){
+    int rc;
+    rc = sqlite3_open(this->m_dbName.c_str(), &this->m_db);
+    if(rc) {
+        return false;
+    } else {
+        return true;
+    }
     return false;
 }
 
 bool DbManager::disconnect(){
-    return false;
+    sqlite3_close(this->m_db);
+    return true;
 }
 
