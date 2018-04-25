@@ -32,3 +32,12 @@ bool DbManager::disconnect(){
     return true;
 }
 
+DbManager* DbManager::m_instance=0;
+
+DbManager* DbManager::getInstance(){
+    if(m_instance==0){
+        m_instance = new DbManager();
+    }
+    return m_instance;
+}
+

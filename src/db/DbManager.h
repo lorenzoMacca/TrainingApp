@@ -9,10 +9,11 @@ class DbManager : public Object{
 private:
     string  m_dbName;
     sqlite3* m_db;
-    
+    static DbManager* m_instance;
+    DbManager();
     
 public:
-    DbManager();
+    static DbManager* getInstance();
     bool connect();
     bool disconnect();
     virtual string toString() const;

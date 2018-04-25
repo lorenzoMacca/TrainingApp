@@ -36,7 +36,7 @@ int main(){
     
     cout << t.toString() << endl;
     
-    DbManager* dbManager = new DbManager;
+    DbManager* dbManager = DbManager::getInstance();
     cout << dbManager->toString() << endl;
     
     dbManager->connect();
