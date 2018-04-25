@@ -3,6 +3,7 @@
 #include "Date.h"
 #include "iostream"
 #include "db/DbManager.h"
+#include "logger/Logger.h"
 
 #include<unistd.h>
 
@@ -10,7 +11,7 @@ using namespace std;
 
 int main(){
     
-   
+    Logger* logger = Logger::getInstance();
     
     Date* d = new Date;
     
