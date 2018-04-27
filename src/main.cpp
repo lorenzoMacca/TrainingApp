@@ -11,7 +11,8 @@ using namespace std;
 
 int main(){
     
-    Logger* logger = Logger::getInstance();
+    Logger::getInstance()->enable();
+    Logger::getInstance()->log(INFO, "I'm the best logger ever");
     
     Date* d = new Date;
     
