@@ -22,5 +22,6 @@ void Logger::disable(){
 }
 
 void Logger::log(int t, string mess){
-    cout << mess << endl;
+    Date d(Date::getCurrentTime());
+    cout << d.toString() << " - { " << mess << "}" << endl;
 }

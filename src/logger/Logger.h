@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 using namespace std;
+#include "../Date.h"
 
 class Logger{
     
