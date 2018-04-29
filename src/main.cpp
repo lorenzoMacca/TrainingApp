@@ -1,9 +1,10 @@
 #include <List.h>
-//#include "Training.h"
+#include <Training.h>
 //#include "Date.h"
 //#include "iostream"
-//#include "db/DbManager.h"
-#include "logger/Logger.h"
+#include <DbManager.h>
+#include <Logger.h>
+#include <TrainingDuration.h>
 
 #include<unistd.h>
 
@@ -14,7 +15,8 @@ int main(){
     Logger::getInstance()->enable();
     Logger::getInstance()->log(INFO, "I'm the best logger ever");
     
-    /*Date* d = new Date;
+    
+    Date* d = new Date;
     
     cout << d->toString() << endl;
     
@@ -42,7 +44,7 @@ int main(){
     cout << dbManager->toString() << endl;
     
     dbManager->connect();
-    dbManager->disconnect();*/
+    dbManager->disconnect();
     
     return 0;
 }

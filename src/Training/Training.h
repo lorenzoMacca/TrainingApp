@@ -1,10 +1,10 @@
 #ifndef TRAINING_H
 #define TRAINING_H
 
-#include "Object.h"
-#include "db/DbObject.h"
-#include "Date.h"
-#include "TrainingDuration.h"
+#include <Object.h>
+#include <DbObject.h>
+#include <Date.h>
+#include <TrainingDuration.h>
 
 class Training : public Object, DbObject{
     
