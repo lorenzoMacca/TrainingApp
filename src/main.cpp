@@ -5,12 +5,15 @@
 #include <DbManager.h>
 #include <Logger.h>
 #include <TrainingDuration.h>
+#include <User.h>
 
 #include <unistd.h>
 
 using namespace std;
 
 int main(){
+	
+	User u("Lorenzo", "Cozza");
     
     Logger::getInstance()->enable();
     Logger::getInstance()->log(INFO, "I'm the best logger ever");
