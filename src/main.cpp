@@ -6,7 +6,7 @@
 #include <Logger.h>
 #include <TrainingDuration.h>
 
-#include<unistd.h>
+#include <unistd.h>
 
 using namespace std;
 
