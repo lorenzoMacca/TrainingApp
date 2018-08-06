@@ -23,7 +23,7 @@ public:
     void setTrainingDuration(TrainingDuration*);
     
     //from DbObject
-    virtual string getSqliteStrTocreateTable()const;
+    static string getSqliteStrTocreateTable();
     
 };
 

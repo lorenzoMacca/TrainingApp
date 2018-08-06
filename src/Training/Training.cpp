@@ -38,7 +38,7 @@ void Training::setTrainingDuration(TrainingDuration* t){
     }
 }
 
-string Training::getSqliteStrTocreateTable()const{
+string Training::getSqliteStrTocreateTable(){
 	string sql = "CREATE TABLE COMPANY("  \
 			"ID INT PRIMARY KEY     NOT NULL," \
 			"NAME           TEXT    NOT NULL," \

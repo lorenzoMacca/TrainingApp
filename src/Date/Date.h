@@ -17,13 +17,15 @@ public:
     virtual int compareTo(Object*) const;
     
     Date();
-    Date(string); //a date like this 2018-4-2 18:20:12
+    Date(string); //from tm serialized
     Date(time_t);
     char getDateSeparator()const;
     char getHourSeparator()const;
     void setDateSeparator(char);
     void setHourSeparator(char);
     static time_t getCurrentTime();
+    string getTmSerialized()const;
+    
     
     
     

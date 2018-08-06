@@ -44,6 +44,14 @@ Date::Date(time_t t){
     this->m_timeT = t;
 }
 
+Date::Date(string str){
+	this->m_dateSeparator = '-';
+	this->m_hourSeparator = ':';
+	tm * timeptr = 0;
+	//TODO convert str to tm
+	this->m_timeT = mktime(timeptr);
+}
+
 char Date::getDateSeparator()const{
     return this->m_dateSeparator;
 }
@@ -62,4 +70,19 @@ void Date::setHourSeparator(char c){
 
 time_t Date::getCurrentTime(){
     return time(0);
+}
+
+string Date::getTmSerialized()const{
+	tm *ltm = localtime(&this->m_timeT);
+	stringstream str;
+	str << ltm->tm_sec << "-"
+	    << ltm->tm_min << "-"
+		<< ltm->tm_hour << "-"
+		<< ltm->tm_mday << "-"
+		<< ltm->tm_mon << "-"
+		<< ltm->tm_year << "-"
+		<< ltm->tm_wday << "-"
+		<< ltm->tm_yday << "-"
+		<< ltm->tm_isdst;
+	return str.str();
 }

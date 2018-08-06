@@ -29,6 +29,8 @@ int main(){
     
     Date* d1 =new Date(Date::getCurrentTime());
     
+    cout << d1->getTmSerialized() << endl;
+    
     cout << d1->toString() << endl;
     
     //int res = d->compareTo(d1);
