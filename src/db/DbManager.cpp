@@ -46,3 +46,26 @@ DbManager* DbManager::getInstance(){
     return m_instance;
 }
 
+bool DbManager::createTable(string sqlQuery){
+	Logger::getInstance()->log(INFO, "DbManager: createTable method has beel called!");
+	char *zErrMsg = 0;
+	int rc = sqlite3_exec(this->m_db, sqlQuery.c_str(), callbackAfterTAbleCreation, 0, &zErrMsg);
+	if( rc != SQLITE_OK ){
+		Logger::getInstance()->log(ERROR, "DbManager: Error during table creation!");
+		sqlite3_free(zErrMsg);
+		return false;
+	} else {
+		Logger::getInstance()->log(INFO, "DbManager: Table created successfully!");
+		return true;
+	}
+}
+
+int DbManager::callbackAfterTAbleCreation(void *NotUsed, int argc, char **argv, char **azColName) {
+   int i;
+   for(i = 0; i<argc; i++) {
+      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+   }
+   printf("\n");
+   return 0;
+}
+

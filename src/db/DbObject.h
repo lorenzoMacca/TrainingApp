@@ -4,8 +4,7 @@
 class DbObject{
     
 public:
-    virtual DbObject* getFromDB()=0;
-    virtual bool writeToDB()=0;
+    virtual string getSqliteStrTocreateTable()const=0;
 };
 
 #endif

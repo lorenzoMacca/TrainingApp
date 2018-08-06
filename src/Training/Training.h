@@ -17,12 +17,13 @@ public:
     Training(Date*, TrainingDuration*);
     virtual string toString() const;
     virtual int compareTo(Object*) const;
-    virtual DbObject* getFromDB();
-    virtual bool writeToDB();
     Date* getDate()const;
     void setDate(Date*);
     TrainingDuration* getTrainingDuration()const;
     void setTrainingDuration(TrainingDuration*);
+    
+    //from DbObject
+    virtual string getSqliteStrTocreateTable()const;
     
 };
 

@@ -38,12 +38,12 @@ void Training::setTrainingDuration(TrainingDuration* t){
     }
 }
 
-DbObject* Training::getFromDB(){
-    //TODO: implementation is missing
-    return NULL;
-}
-
-bool Training::writeToDB(){
-    //TODO: implementation is missing
-    return false;
+string Training::getSqliteStrTocreateTable()const{
+	string sql = "CREATE TABLE COMPANY("  \
+			"ID INT PRIMARY KEY     NOT NULL," \
+			"NAME           TEXT    NOT NULL," \
+			"AGE            INT     NOT NULL," \
+			"ADDRESS        CHAR(50)," \
+			"SALARY         REAL );";
+	return sql;
 }

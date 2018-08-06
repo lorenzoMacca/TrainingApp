@@ -7,7 +7,8 @@ User::User(string name, string surname){
 
 string User::toString() const{
 	string res="[User: ";
-	res+="Name: "+this->m_name+this->m_surname;
+	res +="Name: "+this->m_name + " " + this->m_surname + " ";
+	res += this->m_userData.toString();
 	res+=" ]";
 	return res;
 }

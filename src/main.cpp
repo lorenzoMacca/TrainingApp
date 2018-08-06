@@ -18,6 +18,8 @@ int main(){
     Logger::getInstance()->enable();
     Logger::getInstance()->log(INFO, "I'm the best logger ever");
     
+    Logger::getInstance()->log(INFO, u.toString());
+    
     
     Date* d = new Date;
     
@@ -47,6 +49,9 @@ int main(){
     cout << dbManager->toString() << endl;
     
     dbManager->connect();
+    
+    bool resQ = dbManager->createTable(t.getSqliteStrTocreateTable());
+    
     dbManager->disconnect();
     
     return 0;
