@@ -22,7 +22,7 @@ public:
         
     
     //callback function
-    static int callbackAfterTAbleCreation(void *NotUsed, int argc, char **argv, char **azColName);
+    static int callbackAfterSelect(void *NotUsed, int argc, char **argv, char **azColName);
 
 };
 

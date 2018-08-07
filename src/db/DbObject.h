@@ -6,6 +6,7 @@ class DbObject{
 public:
     static string getSqliteStrTocreateTable();
     string getSqliteStrToInsert()const;
+    static string getSqliteStrToGetAllRecords();
 };
 
 #endif

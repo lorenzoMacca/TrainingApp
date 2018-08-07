@@ -52,3 +52,7 @@ string Training::getSqliteStrToInsert()const{
 		<< "VALUES ('" << this->m_date->getTmSerialized() << "');";
 	return sql.str();	
 }
+
+string Training::getSqliteStrToGetAllRecords(){
+	return "select * from TRAINING";
+}

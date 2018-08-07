@@ -68,6 +68,8 @@ int main(){
    
     bool resQ1 = dbManager->exec(t.getSqliteStrToInsert());
     
+    bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords());
+     
     dbManager->disconnect();
     
     return 0;
