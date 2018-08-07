@@ -16,10 +16,3 @@ std::vector<string>* Utils::split(string str, char delim){
 	vector->push_back(tmp);
 	return vector;
 }
-
-/*
- * -
- * 
- * a--
- * 
- * */

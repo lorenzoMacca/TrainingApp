@@ -39,11 +39,11 @@ void Training::setTrainingDuration(TrainingDuration* t){
 }
 
 string Training::getSqliteStrTocreateTable(){
-	string sql = "CREATE TABLE COMPANY("  \
-			"ID INT PRIMARY KEY     NOT NULL," \
-			"NAME           TEXT    NOT NULL," \
+	string sql = "CREATE TABLE Training("  \
+			"ID INT PRIMARY KEY NOT NULL, " \
+			/*"NAME           TEXT    NOT NULL," \
 			"AGE            INT     NOT NULL," \
-			"ADDRESS        CHAR(50)," \
-			"SALARY         REAL );";
+			"ADDRESS        CHAR(50)," \*/
+			"DATE TEXT NOT NULL);";
 	return sql;
 }
