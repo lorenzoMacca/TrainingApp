@@ -6,6 +6,8 @@
 #include <Logger.h>
 #include <TrainingDuration.h>
 #include <User.h>
+#include <Utils.h>
+#include <vector>
 
 #include <unistd.h>
 
@@ -29,7 +31,17 @@ int main(){
     
     Date* d1 =new Date(Date::getCurrentTime());
     
-    cout << d1->getTmSerialized() << endl;
+    Logger::getInstance()->log(INFO, "check tm serialized");
+    cout << d1->toString() <<endl;
+    string tmSerialized = d1->getTmSerialized();
+    cout << tmSerialized << endl;
+    std::vector<string> *ltm = Utils::split(tmSerialized, '-');
+    for (std::vector<string>::iterator it=ltm->begin(); it != ltm->end(); ++it)
+        std::cout << *it;
+    cout << endl;
+    Date d11(tmSerialized);
+    cout << d11.toString() << endl;
+    Logger::getInstance()->log(INFO, "END check tm serialized");
     
     cout << d1->toString() << endl;
     

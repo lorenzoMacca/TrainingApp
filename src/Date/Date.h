@@ -4,6 +4,8 @@
 #include <Object.h>
 #include <ctime>
 #include <sstream>
+#include <Utils.h>
+#include <list>
 
 class Date : public Object{
     
@@ -25,7 +27,7 @@ public:
     void setHourSeparator(char);
     static time_t getCurrentTime();
     string getTmSerialized()const;
-    
+    bool deserializeToTm(string str, struct tm * timeptr)const;
     
     
     

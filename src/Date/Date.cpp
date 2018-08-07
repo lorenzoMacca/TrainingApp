@@ -47,9 +47,12 @@ Date::Date(time_t t){
 Date::Date(string str){
 	this->m_dateSeparator = '-';
 	this->m_hourSeparator = ':';
-	tm * timeptr = 0;
-	//TODO convert str to tm
-	this->m_timeT = mktime(timeptr);
+	tm * timeptr = new tm;
+	if( this->deserializeToTm(str,timeptr) ){
+		this->m_timeT = mktime(timeptr);
+	}else{
+		this->m_timeT = time(0);
+	}
 }
 
 char Date::getDateSeparator()const{
@@ -86,3 +89,23 @@ string Date::getTmSerialized()const{
 		<< ltm->tm_isdst;
 	return str.str();
 }
+
+bool Date::deserializeToTm(string str, struct tm * timeptr)const{
+	std::vector<string> *vtm = Utils::split(str, '-');
+	if(vtm->size() != 9) return false;
+	timeptr->tm_sec   = stoi(vtm->at(0));
+	timeptr->tm_min   = stoi(vtm->at(1));
+	timeptr->tm_hour  = stoi(vtm->at(2));
+	timeptr->tm_mday  = stoi(vtm->at(3));
+	timeptr->tm_mon   = stoi(vtm->at(4));
+	timeptr->tm_year  = stoi(vtm->at(5));
+	timeptr->tm_wday  = stoi(vtm->at(6));
+	timeptr->tm_yday  = stoi(vtm->at(7));
+	timeptr->tm_isdst = stoi(vtm->at(8));
+	delete vtm;
+	return true;
+}
+
+
+
+
