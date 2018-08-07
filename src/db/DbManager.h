@@ -18,7 +18,8 @@ public:
     bool disconnect();
     virtual string toString() const;
     virtual int compareTo(Object*) const;
-    virtual bool createTable(string sqlQuery=0);
+    virtual bool exec(string sqlQuery=0);
+        
     
     //callback function
     static int callbackAfterTAbleCreation(void *NotUsed, int argc, char **argv, char **azColName);

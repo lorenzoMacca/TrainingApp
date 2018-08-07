@@ -64,7 +64,9 @@ int main(){
     
     dbManager->connect();
     
-    bool resQ = dbManager->createTable(t.getSqliteStrTocreateTable());
+    bool resQ = dbManager->exec(t.getSqliteStrTocreateTable());
+   
+    bool resQ1 = dbManager->exec(t.getSqliteStrToInsert());
     
     dbManager->disconnect();
     

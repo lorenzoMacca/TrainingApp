@@ -24,6 +24,7 @@ public:
     
     //from DbObject
     static string getSqliteStrTocreateTable();
+    string getSqliteStrToInsert()const;
     
 };
 
