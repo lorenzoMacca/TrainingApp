@@ -10,10 +10,13 @@
 #include <vector>
 #include <Iterator.h>
 #include <unistd.h>
+#include <Run.h>
 
 using namespace std;
 
 int main(){
+	
+	
 	
 	User u("Lorenzo", "Cozza");
     
@@ -57,6 +60,11 @@ int main(){
     t.setComment("pippo");
     List l;
     l.pushBack(&t);
+    
+    cout << "test run" << endl;
+    Run r(d1, td);
+    Training *run = new Run(d1, td);
+    run->getSqliteStrToInsert();
     
     cout << t.toString() << endl;
     
