@@ -71,12 +71,12 @@ int main(){
     
     List* list = new List;
     bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords(), list);
-    Iterator* i = list->getIterator();
+    /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();
     	cout << tmp << endl;
     	(*i)++;
-    }
+    }*/
      
     dbManager->disconnect();
     

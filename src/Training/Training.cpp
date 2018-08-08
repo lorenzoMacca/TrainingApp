@@ -53,14 +53,16 @@ string Training::getSqliteStrTocreateTable(){
 	sql << "CREATE TABLE TRAINING("
 		<< "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
 		<< "DATE TEXT NOT NULL, "
+		<< "DURATION INTEGER NOT NULL, "
 		<< "COMMENT TEXT);";
 	return sql.str();
 }
 
 string Training::getSqliteStrToInsert()const{
 	stringstream sql;
-	sql << "INSERT INTO TRAINING (DATE, COMMENT) " 
-		<< "VALUES ('" << this->m_date->getTmSerialized() << "',"
+	sql << "INSERT INTO TRAINING (DATE, DURATION, COMMENT) " 
+		<< "VALUES ('" << this->m_date->getTmSerialized() << "', "
+		<< this->m_trainingDuration->getDuration() << ", "
 		<< "'" << this->m_comment << "');";
 	return sql.str();	
 }
