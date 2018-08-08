@@ -8,7 +8,7 @@
 #include <User.h>
 #include <Utils.h>
 #include <vector>
-
+#include <Iterator.h>
 #include <unistd.h>
 
 using namespace std;
@@ -54,6 +54,7 @@ int main(){
     TrainingDuration* td = new TrainingDuration(60);
     
     Training t(d1, td);
+    t.setComment("pippo");
     List l;
     l.pushBack(&t);
     
@@ -68,9 +69,18 @@ int main(){
    
     bool resQ1 = dbManager->exec(t.getSqliteStrToInsert());
     
-    bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords());
+    List* list = new List;
+    bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords(), list);
+    Iterator* i = list->getIterator();
+    while(i->hasNext()){
+    	string tmp = i->getCurrentValue()->toString();
+    	cout << tmp << endl;
+    	(*i)++;
+    }
      
     dbManager->disconnect();
     
+    
+    delete list;
     return 0;
 }

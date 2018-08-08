@@ -3,6 +3,11 @@
 
 #include "Object.h"
 #include <sqlite3.h>
+#include <Logger.h>
+#include <List.h>
+#include <TrainingDuration.h>
+#include <Date.h>
+#include <Training.h>
 
 class DbManager : public Object{
 
@@ -18,7 +23,7 @@ public:
     bool disconnect();
     virtual string toString() const;
     virtual int compareTo(Object*) const;
-    virtual bool exec(string sqlQuery=0);
+    virtual bool exec(string sqlQuery=0, void* d=0);
         
     
     //callback function

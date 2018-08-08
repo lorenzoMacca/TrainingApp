@@ -1,5 +1,4 @@
 #include "DbManager.h"
-#include "Logger.h"
 
 DbManager::DbManager(){
     this->m_dbName = "training.db";
@@ -46,11 +45,11 @@ DbManager* DbManager::getInstance(){
     return m_instance;
 }
 
-bool DbManager::exec(string sqlQuery){
+bool DbManager::exec(string sqlQuery, void* d){
 	Logger::getInstance()->log(INFO, "DbManager: exec has beel called!");
 		Logger::getInstance()->log(INFO, "DbManager: query: "+sqlQuery);
 		char *zErrMsg = 0;
-		int rc = sqlite3_exec(this->m_db, sqlQuery.c_str(), callbackAfterSelect, 0, &zErrMsg);
+		int rc = sqlite3_exec(this->m_db, sqlQuery.c_str(), callbackAfterSelect, d, &zErrMsg);
 		if( rc != SQLITE_OK ){
 			stringstream errMsg;
 			errMsg << "DbManager: Error during query exec: " << rc << " - "  << zErrMsg;
@@ -63,12 +62,23 @@ bool DbManager::exec(string sqlQuery){
 		}
 }
 
-int DbManager::callbackAfterSelect(void *NotUsed, int argc, char **argv, char **azColName) {
-   int i;
-   for(i = 0; i<argc; i++) {
-      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-   }
-   printf("\n");
-   return 0;
+int DbManager::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
+	if(list_Not_casted == 0) return 0;
+	List* list = static_cast<List*>(list_Not_casted);
+	int i;
+	Date *d = 0;
+	string comment = "";
+	for(i = 0; i<argc; i++) {
+		string columnNme(azColName[i]);
+		if(columnNme == "DATE"){
+			d = new Date(argv[i]);
+		}else if(columnNme == "COMMENT"){
+			comment=argv[i];
+		}
+	}
+	Training *t = new Training(d, new TrainingDuration(60));
+	t->setComment(comment);
+	list->pushBack(t);
+	return 0;
 }
 

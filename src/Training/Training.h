@@ -5,6 +5,7 @@
 #include <DbObject.h>
 #include <Date.h>
 #include <TrainingDuration.h>
+#include <List.h>
 
 class Training : public Object, DbObject{
     
@@ -21,11 +22,15 @@ public:
     void setDate(Date*);
     TrainingDuration* getTrainingDuration()const;
     void setTrainingDuration(TrainingDuration*);
+    void setComment(string s);
+    string getComment()const;
     
     //from DbObject
     static string getSqliteStrTocreateTable();
     string getSqliteStrToInsert()const;
     static string getSqliteStrToGetAllRecords();
+    
+    
     
 };
 

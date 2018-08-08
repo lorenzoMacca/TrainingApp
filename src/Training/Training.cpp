@@ -6,11 +6,13 @@ Training::Training(Date* d, TrainingDuration* t){
 }
 
 string Training::toString() const{
-    string res =  "[Training: ";
-    res += this->m_date->toString() + " - ";
-    res += this->m_trainingDuration->toString();
-    res += "]";
-    return res;
+	stringstream res;
+	res <<  "[Training: ";
+    res << this->m_date->toString() << " - ";
+    res << this->m_trainingDuration->toString() << " - ";
+    res << "Comment: " << this->m_comment;
+    res << "]";
+    return res.str();;
 }
 
 int Training::compareTo(Object* o) const{
@@ -38,18 +40,28 @@ void Training::setTrainingDuration(TrainingDuration* t){
     }
 }
 
+void Training::setComment(string s){
+	this->m_comment = s;
+}
+
+string Training::getComment()const{
+	return this->m_comment;
+}
+
 string Training::getSqliteStrTocreateTable(){
 	stringstream sql;
 	sql << "CREATE TABLE TRAINING("
 		<< "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-		<< "DATE TEXT NOT NULL);";
+		<< "DATE TEXT NOT NULL, "
+		<< "COMMENT TEXT);";
 	return sql.str();
 }
 
 string Training::getSqliteStrToInsert()const{
 	stringstream sql;
-	sql << "INSERT INTO TRAINING (DATE) " 
-		<< "VALUES ('" << this->m_date->getTmSerialized() << "');";
+	sql << "INSERT INTO TRAINING (DATE, COMMENT) " 
+		<< "VALUES ('" << this->m_date->getTmSerialized() << "',"
+		<< "'" << this->m_comment << "');";
 	return sql.str();	
 }
 
