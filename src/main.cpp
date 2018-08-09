@@ -11,13 +11,14 @@
 #include <Iterator.h>
 #include <unistd.h>
 #include <Run.h>
+#include <Shoe.h>
 
 using namespace std;
 
 int main(){
 	
-	
-	
+	Shoe s(-1, "asics", "prelude", 132.0);
+	cout << s.toString() << endl;
 	User u("Lorenzo", "Cozza");
     
     Logger::getInstance()->enable();
@@ -73,12 +74,12 @@ int main(){
     
     dbManager->connect();
     
-    bool resQ = dbManager->exec(t.getSqliteStrTocreateTable());
+    bool resQ = dbManager->exec(t.getSqliteStrTocreateTable(), 0);
    
-    bool resQ1 = dbManager->exec(t.getSqliteStrToInsert());
+    bool resQ1 = dbManager->exec(t.getSqliteStrToInsert(), 0);
     
     List* list = new List;
-    bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords(), list);
+    bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords(), list, Training::callbackAfterSelect);
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();

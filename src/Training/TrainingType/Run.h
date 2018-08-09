@@ -5,6 +5,12 @@
 #include <Logger.h>
 
 class Run : public Training{
+	
+	private:
+		unsigned m_km;
+		
+		
+	
 	public:
 		Run(Date*, TrainingDuration*);
 		

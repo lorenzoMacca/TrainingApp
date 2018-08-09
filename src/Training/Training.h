@@ -6,6 +6,7 @@
 #include <Date.h>
 #include <TrainingDuration.h>
 #include <List.h>
+#include <Logger.h>
 
 class Training : public Object, DbObject{
     
@@ -29,6 +30,10 @@ public:
     static string getSqliteStrTocreateTable();
     virtual string getSqliteStrToInsert()const;
     static string getSqliteStrToGetAllRecords();
+    
+    //from sqlite3 callback func 
+    //callback function
+    static int callbackAfterSelect(void *NotUsed, int argc, char **argv, char **azColName);
     
     
     

@@ -70,3 +70,27 @@ string Training::getSqliteStrToInsert()const{
 string Training::getSqliteStrToGetAllRecords(){
 	return "select * from TRAINING";
 }
+
+int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
+	if(list_Not_casted == 0) return 0;
+	List* list = static_cast<List*>(list_Not_casted);
+	int i;
+	Date *d = 0;
+	string comment = "";
+	TrainingDuration* trainingDuration;
+	for(i = 0; i<argc; i++) {
+		string columnNme(azColName[i]);
+		if(columnNme == "DATE"){
+			d = new Date(argv[i]);
+		}else if(columnNme == "COMMENT"){
+			comment=argv[i];
+		}else if(columnNme == "DURATION"){
+			trainingDuration=new TrainingDuration(stoi(argv[i]));
+		}
+	}
+	Training *t = new Training(d, trainingDuration);
+	t->setComment(comment);
+	Logger::getInstance()->log(INFO, "DbManager: Training instance created: " + t->toString() );
+	list->pushBack(t);
+	return 0;
+}
