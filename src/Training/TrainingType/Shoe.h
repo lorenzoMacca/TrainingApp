@@ -4,6 +4,8 @@
 #include <Object.h>
 #include <DbObject.h>
 #include <sstream>
+#include <List.h>
+#include <Logger.h>
 
 class Shoe : public Object, DbObject{
 	private:
@@ -23,6 +25,10 @@ class Shoe : public Object, DbObject{
 		static string getSqliteStrTocreateTable();
 		virtual string getSqliteStrToInsert()const;
 		static string getSqliteStrToGetAllRecords();
+	    
+		//from sqlite3 callback func 
+	    //callback function
+	    static int callbackAfterSelect(void *NotUsed, int argc, char **argv, char **azColName);
 };
 
 #endif

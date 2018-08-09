@@ -42,3 +42,29 @@ string Shoe::getSqliteStrToInsert()const{
 string Shoe::getSqliteStrToGetAllRecords(){
 	return "select * from SHOE";
 }
+
+int Shoe::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
+	if(list_Not_casted == 0) return 0;
+	List* list = static_cast<List*>(list_Not_casted);
+	int i;
+	int id = -1;
+	string brand = "";
+	string model = "";
+	float price = 0.0;
+	for(i = 0; i<argc; i++) {
+		string columnNme(azColName[i]);
+		if(columnNme == "BRAND"){
+			brand = argv[i];
+		}else if(columnNme == "MODEL"){
+			model=argv[i];
+		}else if(columnNme == "ID"){
+			id=stoi(argv[i]);
+		}else if(columnNme == "PRICE"){
+			price=stof(argv[i]);
+		}
+	}
+	Shoe *s = new Shoe(id, brand, model, price);
+	Logger::getInstance()->log(INFO, "DbManager: SHOE instance created: " + s->toString() );
+	list->pushBack(s);
+	return 0;
+}

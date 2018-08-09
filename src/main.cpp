@@ -74,12 +74,16 @@ int main(){
     
     dbManager->connect();
     
-    bool resQ = dbManager->exec(t.getSqliteStrTocreateTable(), 0);
+    dbManager->exec(Training::getSqliteStrTocreateTable(), 0);
+    dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
    
-    bool resQ1 = dbManager->exec(t.getSqliteStrToInsert(), 0);
+    dbManager->exec(t.getSqliteStrToInsert(), 0);
+    dbManager->exec(s.getSqliteStrToInsert(), 0);
     
-    List* list = new List;
-    bool resQ2 = dbManager->exec(Training::getSqliteStrToGetAllRecords(), list, Training::callbackAfterSelect);
+    List* listTraining = new List;
+    List* listShoes = new List;
+    dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
+    dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();
@@ -90,6 +94,7 @@ int main(){
     dbManager->disconnect();
     
     
-    delete list;
+    delete listTraining;
+    delete listShoes;
     return 0;
 }
