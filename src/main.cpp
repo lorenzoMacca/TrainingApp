@@ -63,8 +63,8 @@ int main(){
     l.pushBack(&t);
     
     cout << "test run" << endl;
-    Run r(d1, td);
-    Training *run = new Run(d1, td);
+    Run r(d1, td, s);
+    Training *run = new Run(d1, td, s);
     run->getSqliteStrToInsert();
     
     cout << t.toString() << endl;

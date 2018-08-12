@@ -1,7 +1,7 @@
 #include "Run.h"
 
-Run::Run(Date* date, TrainingDuration* du):Training(date, du){
-	
+Run::Run(Date* date, TrainingDuration* du, Shoe s):Training(date, du){
+	this->m_shoe=s;
 }
 
 string Run::toString() const{

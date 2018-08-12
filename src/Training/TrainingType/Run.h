@@ -3,16 +3,17 @@
 
 #include <Training.h>
 #include <Logger.h>
+#include <Shoe.h>
 
 class Run : public Training{
 	
 	private:
 		unsigned m_km;
-		
+		Shoe m_shoe;
 		
 	
 	public:
-		Run(Date*, TrainingDuration*);
+		Run(Date*, TrainingDuration*, Shoe s);
 		
 		//from Training:
 		virtual string toString() const;
