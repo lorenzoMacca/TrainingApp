@@ -18,7 +18,7 @@ string Run::getSqliteStrTocreateTable(){
 }
 
 string Run::getSqliteStrToInsert()const{
-	Logger::getInstance()->log(INFO, "RUN: getSqliteStrToInsert has been called");
+	Logger::getInstance()->log(Logger::INFO, "RUN: getSqliteStrToInsert has been called");
 	//TODO implementation is missing
 	return "";
 }

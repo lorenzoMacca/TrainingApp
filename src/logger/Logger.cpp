@@ -23,5 +23,19 @@ void Logger::disable(){
 
 void Logger::log(int t, string mess){
     Date d(Date::getCurrentTime());
-    cout << d.toString() << " - { " << mess << "}" << endl;
+    string logType = "";
+    switch(t){
+        case Logger::INFO:
+            logType = "INFO";
+            break;
+        case Logger::DEBUG:
+            logType = "DEBUG";
+            break;
+        case Logger::ERROR:
+            logType = "ERROR";
+            break;
+        default:
+            logType = "NA";
+    }
+    cout << d.toString() << "[" << logType << "]" << " - { " << mess << "}" << endl;
 }

@@ -17,21 +17,21 @@ int DbManager::compareTo(Object* o) const{
 }
 
 bool DbManager::connect(){
-    Logger::getInstance()->log(INFO, "DbManager: connecting to " + this->m_dbName);
+    Logger::getInstance()->log(Logger::INFO, "DbManager: connecting to " + this->m_dbName);
     int rc;
     rc = sqlite3_open(this->m_dbName.c_str(), &this->m_db);
     if(rc) {
-        Logger::getInstance()->log(INFO, std::string("DbManager: Error: ") + sqlite3_errmsg(this->m_db));
+        Logger::getInstance()->log(Logger::INFO, std::string("DbManager: Error: ") + sqlite3_errmsg(this->m_db));
         return false;
     } else {
-        Logger::getInstance()->log(INFO, "DbManager: Opened database successfully");
+        Logger::getInstance()->log(Logger::INFO, "DbManager: Opened database successfully");
         return true;
     }
     return false;
 }
 
 bool DbManager::disconnect(){
-    Logger::getInstance()->log(INFO, "DbManager: Closing database");
+    Logger::getInstance()->log(Logger::INFO, "DbManager: Closing database");
     sqlite3_close(this->m_db);
     return true;
 }
@@ -46,18 +46,18 @@ DbManager* DbManager::getInstance(){
 }
 
 bool DbManager::exec(string sqlQuery, void* d, int (*callback)(void*,int,char**,char**)){
-	Logger::getInstance()->log(INFO, "DbManager: exec has beel called!");
-		Logger::getInstance()->log(INFO, "DbManager: query: "+sqlQuery);
+	Logger::getInstance()->log(Logger::INFO, "DbManager: exec has beel called!");
+		Logger::getInstance()->log(Logger::INFO, "DbManager: query: "+sqlQuery);
 		char *zErrMsg = 0;
 		int rc = sqlite3_exec(this->m_db, sqlQuery.c_str(), callback, d, &zErrMsg);
 		if( rc != SQLITE_OK ){
 			stringstream errMsg;
 			errMsg << "DbManager: Error during query exec: " << rc << " - "  << zErrMsg;
-			Logger::getInstance()->log(ERROR, errMsg.str());
+			Logger::getInstance()->log(Logger::ERROR, errMsg.str());
 			sqlite3_free(zErrMsg);
 			return false;
 		} else {
-			Logger::getInstance()->log(INFO, "DbManager: query has been executed successfully!");
+			Logger::getInstance()->log(Logger::INFO, "DbManager: query has been executed successfully!");
 			return true;
 		}
 }

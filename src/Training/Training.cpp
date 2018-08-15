@@ -60,11 +60,11 @@ string Training::getSqliteStrTocreateTable(){
 
 string Training::getSqliteStrToInsert()const{
 	stringstream sql;
-	sql << "INSERT INTO TRAINING (DATE, DURATION, COMMENT) " 
+	sql << "INSERT INTO TRAINING (DATE, DURATION, COMMENT) "
 		<< "VALUES ('" << this->m_date->getTmSerialized() << "', "
 		<< this->m_trainingDuration->getDuration() << ", "
 		<< "'" << this->m_comment << "');";
-	return sql.str();	
+	return sql.str();
 }
 
 string Training::getSqliteStrToGetAllRecords(){
@@ -90,7 +90,7 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 	}
 	Training *t = new Training(d, trainingDuration);
 	t->setComment(comment);
-	Logger::getInstance()->log(INFO, "DbManager: Training instance created: " + t->toString() );
+	Logger::getInstance()->log(Logger::INFO, "DbManager: Training instance created: " + t->toString() );
 	list->pushBack(t);
 	return 0;
 }

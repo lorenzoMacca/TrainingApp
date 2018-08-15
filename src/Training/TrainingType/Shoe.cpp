@@ -9,7 +9,7 @@ Shoe::Shoe(int id, string brand, string model, float price){
 
 string Shoe::toString() const{
 	stringstream sstr;
-	sstr << "[Shoe: " 
+	sstr << "[Shoe: "
 		 << "ID: " << this->m_id_db << " - "
 		 << "Brand: " << this->m_brand << " - "
 		 << "Model: " << this->m_model << " - "
@@ -32,7 +32,7 @@ string Shoe::getSqliteStrTocreateTable(){
 
 string Shoe::getSqliteStrToInsert()const{
 	stringstream sql;
-	sql << "INSERT INTO SHOE (BRAND, PRICE, MODEL) " 
+	sql << "INSERT INTO SHOE (BRAND, PRICE, MODEL) "
 		<< "VALUES ('" << m_brand << "', "
 		<< this->m_id_db << ", "
 		<< "'" << this->m_model << "');";
@@ -64,7 +64,7 @@ int Shoe::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
 		}
 	}
 	Shoe *s = new Shoe(id, brand, model, price);
-	Logger::getInstance()->log(INFO, "DbManager: SHOE instance created: " + s->toString() );
+	Logger::getInstance()->log(Logger::INFO, "DbManager: SHOE instance created: " + s->toString() );
 	list->pushBack(s);
 	return 0;
 }
