@@ -1,11 +1,16 @@
 #include "Run.h"
 
-Run::Run(Date* date, TrainingDuration* du, Shoe s):Training(date, du){
+Run::Run(Date* date, TrainingDuration du, Shoe s):Training(date, du){
 	this->m_shoe=s;
 }
 
 string Run::toString() const{
-	//TODO implementation is missing
+	stringstream str;
+    str << "[RUN:"
+        << "Km:" << this->m_km << " - "
+        << this->m_shoe.toString()
+        << "]";
+	return str.str();
 }
 
 int Run::compareTo(Object*) const{

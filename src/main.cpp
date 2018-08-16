@@ -55,7 +55,7 @@ int main(){
 
     cout << res << endl;
 
-    TrainingDuration* td = new TrainingDuration(60);
+    TrainingDuration td(60);
 
     Training t(d1, td);
     t.setComment("pippo");
@@ -66,6 +66,7 @@ int main(){
     Run r(d1, td, s);
     Training *run = new Run(d1, td, s);
     run->getSqliteStrToInsert();
+    Logger::getInstance()->log(Logger::INFO, r.toString());
 
     cout << t.toString() << endl;
 

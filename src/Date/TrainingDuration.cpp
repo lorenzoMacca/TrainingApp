@@ -4,6 +4,10 @@ TrainingDuration::TrainingDuration(unsigned int d){
     this->m_durationInMin = d;
 }
 
+TrainingDuration::TrainingDuration(){
+    this->m_durationInMin = 0;
+}
+
 string TrainingDuration::toString() const{
     string res =  "[TrainingDuration: ";
     res += to_string(this->getDuration(MINUTES));

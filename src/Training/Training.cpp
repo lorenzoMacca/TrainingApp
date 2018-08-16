@@ -1,6 +1,6 @@
 #include "Training.h"
 
-Training::Training(Date* d, TrainingDuration* t){
+Training::Training(Date* d, TrainingDuration t){
     this->m_date = d;
     this->m_trainingDuration = t;
 }
@@ -9,7 +9,7 @@ string Training::toString() const{
 	stringstream res;
 	res <<  "[Training: ";
     res << this->m_date->toString() << " - ";
-    res << this->m_trainingDuration->toString() << " - ";
+    res << this->m_trainingDuration.toString() << " - ";
     res << "Comment: " << this->m_comment;
     res << "]";
     return res.str();;
@@ -30,14 +30,12 @@ void Training::setDate(Date* d){
     }
 }
 
-TrainingDuration* Training::getTrainingDuration()const{
+TrainingDuration Training::getTrainingDuration()const{
     return this->m_trainingDuration;
 }
 
-void Training::setTrainingDuration(TrainingDuration* t){
-    if(t!=0){
-        this->m_trainingDuration = t;
-    }
+void Training::setTrainingDuration(TrainingDuration t){
+    this->m_trainingDuration = t;
 }
 
 void Training::setComment(string s){
@@ -62,7 +60,7 @@ string Training::getSqliteStrToInsert()const{
 	stringstream sql;
 	sql << "INSERT INTO TRAINING (DATE, DURATION, COMMENT) "
 		<< "VALUES ('" << this->m_date->getTmSerialized() << "', "
-		<< this->m_trainingDuration->getDuration() << ", "
+		<< this->m_trainingDuration.getDuration() << ", "
 		<< "'" << this->m_comment << "');";
 	return sql.str();
 }
@@ -77,7 +75,7 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 	int i;
 	Date *d = 0;
 	string comment = "";
-	TrainingDuration* trainingDuration;
+	unsigned int timeDuration = 0;
 	for(i = 0; i<argc; i++) {
 		string columnNme(azColName[i]);
 		if(columnNme == "DATE"){
@@ -85,9 +83,10 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 		}else if(columnNme == "COMMENT"){
 			comment=argv[i];
 		}else if(columnNme == "DURATION"){
-			trainingDuration=new TrainingDuration(stoi(argv[i]));
+			timeDuration = stoi(argv[i]);
 		}
 	}
+	TrainingDuration trainingDuration(timeDuration);
 	Training *t = new Training(d, trainingDuration);
 	t->setComment(comment);
 	Logger::getInstance()->log(Logger::INFO, "DbManager: Training instance created: " + t->toString() );
