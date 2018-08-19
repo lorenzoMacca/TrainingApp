@@ -1,7 +1,5 @@
 #include <List.h>
 #include <Training.h>
-//#include "Date.h"
-//#include "iostream"
 #include <DbManager.h>
 #include <Logger.h>
 #include <TrainingDuration.h>
