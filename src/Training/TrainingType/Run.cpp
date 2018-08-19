@@ -6,10 +6,12 @@ Run::Run(Date* date, TrainingDuration* du, Shoe s):Training(date, du){
 
 string Run::toString() const{
 	//TODO implementation is missing
+	return "";
 }
 
 int Run::compareTo(Object*) const{
 	//TODO implementation is missing
+	return -2;
 }
 
 string Run::getSqliteStrTocreateTable(){
