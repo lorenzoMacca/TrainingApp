@@ -15,6 +15,7 @@ string Run::toString() const{
 
 int Run::compareTo(Object*) const{
 	//TODO implementation is missing
+	return -2;
 }
 
 string Run::getSqliteStrTocreateTable(){
