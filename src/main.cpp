@@ -72,12 +72,16 @@ int main(){
     cout << dbManager->toString() << endl;
 
     dbManager->connect();
+    dbManager->init();
 
     dbManager->exec(Training::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
+    dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
 
     dbManager->exec(t.getSqliteStrToInsert(), 0);
     dbManager->exec(s.getSqliteStrToInsert(), 0);
+    dbManager->exec(r.getSqliteStrToInsert(), 0);
+
 
     List* listTraining = new List;
     List* listShoes = new List;

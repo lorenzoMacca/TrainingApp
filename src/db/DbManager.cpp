@@ -45,6 +45,14 @@ DbManager* DbManager::getInstance(){
     return m_instance;
 }
 
+bool DbManager::init(){
+    string check_foreign_key_support = "PRAGMA foreign_keys;";
+    string enable_foreign_key_support = "PRAGMA foreign_keys = ON;";
+    if(this->exec(check_foreign_key_support, NULL, DbManager::callbackAfterPragmaCall))
+        return true;
+    return false;
+}
+
 bool DbManager::exec(string sqlQuery, void* d, int (*callback)(void*,int,char**,char**)){
 	Logger::getInstance()->log(Logger::INFO, "DbManager: exec has beel called!");
 		Logger::getInstance()->log(Logger::INFO, "DbManager: query: "+sqlQuery);
@@ -60,5 +68,18 @@ bool DbManager::exec(string sqlQuery, void* d, int (*callback)(void*,int,char**,
 			Logger::getInstance()->log(Logger::INFO, "DbManager: query has been executed successfully!");
 			return true;
 		}
+}
+
+int DbManager::callbackAfterPragmaCall(void *list_Not_casted, int argc, char **argv, char **azColName) {
+    Logger::getInstance()->log(Logger::INFO, "DbManager: callbackAfterPragmaCall has been called");
+    string foreign_key_support(argv[0]);
+    if(foreign_key_support == "0"){
+        Logger::getInstance()->log(Logger::INFO, "DbManager: Foreign key NOT supported");
+    }else{
+        Logger::getInstance()->log(Logger::INFO, "DbManager: Foreign key supported");
+    }
+
+
+    return 0;
 }
 

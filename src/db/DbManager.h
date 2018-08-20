@@ -16,15 +16,21 @@ private:
     sqlite3* m_db;
     static DbManager* m_instance;
     DbManager();
-    
+
 public:
     static DbManager* getInstance();
     bool connect();
     bool disconnect();
+    bool init();
     virtual string toString() const;
     virtual int compareTo(Object*) const;
+
     //parameter: query, data to be passed to the callback func, callback func
     virtual bool exec(string sqlQuery=0, void* d=0, int (*callback)(void*,int,char**,char**)=0);
+
+    //from sqlite3 callback func
+    //callback function
+	static int callbackAfterPragmaCall(void *NotUsed, int argc, char **argv, char **azColName);
 
 };
 

@@ -16,6 +16,7 @@ class Shoe : public Object, DbObject{
 
 	public:
 		Shoe(int id=-1, string brand="", string model="", float price=0);
+		int getId()const;
 
 		//from Object
 		virtual string toString() const;

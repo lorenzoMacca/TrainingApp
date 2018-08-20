@@ -34,7 +34,7 @@ string Shoe::getSqliteStrToInsert()const{
 	stringstream sql;
 	sql << "INSERT INTO SHOE (BRAND, PRICE, MODEL) "
 		<< "VALUES ('" << m_brand << "', "
-		<< this->m_id_db << ", "
+		<< this->m_price << ", "
 		<< "'" << this->m_model << "');";
 	return sql.str();
 }
@@ -67,4 +67,8 @@ int Shoe::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
 	Logger::getInstance()->log(Logger::INFO, "DbManager: SHOE instance created: " + s->toString() );
 	list->pushBack(s);
 	return 0;
+}
+
+int Shoe::getId()const{
+	return this->m_id_db;
 }
