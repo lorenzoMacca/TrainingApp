@@ -16,6 +16,9 @@ private:
     sqlite3* m_db;
     static DbManager* m_instance;
     DbManager();
+    
+    bool checkForeignKeysEnabled();
+    void enableForeignkeys();
 
 public:
     static DbManager* getInstance();

@@ -45,12 +45,39 @@ DbManager* DbManager::getInstance(){
     return m_instance;
 }
 
-bool DbManager::init(){
+bool DbManager::checkForeignKeysEnabled(){
     string check_foreign_key_support = "PRAGMA foreign_keys;";
-    string enable_foreign_key_support = "PRAGMA foreign_keys = ON;";
-    if(this->exec(check_foreign_key_support, NULL, DbManager::callbackAfterPragmaCall))
+    bool isForeignKeysEnabled = false;
+    this->exec(check_foreign_key_support, &isForeignKeysEnabled, DbManager::callbackAfterPragmaCall);
+    if (isForeignKeysEnabled) {
         return true;
-    return false;
+    }else {
+        Logger::getInstance()->log(Logger::INFO, "DbManager: enabling Foreign key supported");
+        this->enableForeignkeys();
+        this->exec(check_foreign_key_support, &isForeignKeysEnabled, DbManager::callbackAfterPragmaCall);
+        if (isForeignKeysEnabled) {
+            Logger::getInstance()->log(Logger::INFO, "DbManager: Foreign key has been enabled");
+            return true;
+        } else {
+            Logger::getInstance()->log(Logger::ERROR, "DbManager: Foreign key enabling failed");
+            return false;
+        }
+    }
+}
+
+void DbManager::enableForeignkeys(){
+    string enable_foreign_key_support = "PRAGMA foreign_keys = ON;";
+    this->exec(enable_foreign_key_support, NULL, NULL);
+}
+
+bool DbManager::init(){
+    if (this->checkForeignKeysEnabled()) {
+        Logger::getInstance()->log(Logger::INFO, "DbManager: Foreign key support is enabled");
+        return true;
+    }else{
+        Logger::getInstance()->log(Logger::ERROR, "DbManager: Foreign key support is NOT enabled");
+        return false;
+    }
 }
 
 bool DbManager::exec(string sqlQuery, void* d, int (*callback)(void*,int,char**,char**)){
@@ -70,13 +97,17 @@ bool DbManager::exec(string sqlQuery, void* d, int (*callback)(void*,int,char**,
 		}
 }
 
-int DbManager::callbackAfterPragmaCall(void *list_Not_casted, int argc, char **argv, char **azColName) {
+int DbManager::callbackAfterPragmaCall(void *isForeignKeysEnabled, int argc, char **argv, char **azColName) {
     Logger::getInstance()->log(Logger::INFO, "DbManager: callbackAfterPragmaCall has been called");
+    if (isForeignKeysEnabled == NULL) {
+        return 0;
+    }
+    bool* tmp = static_cast<bool*>(isForeignKeysEnabled);
     string foreign_key_support(argv[0]);
     if(foreign_key_support == "0"){
-        Logger::getInstance()->log(Logger::INFO, "DbManager: Foreign key NOT supported");
+        *tmp=false;
     }else{
-        Logger::getInstance()->log(Logger::INFO, "DbManager: Foreign key supported");
+        *tmp=true;
     }
 
 
