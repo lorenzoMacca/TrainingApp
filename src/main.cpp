@@ -15,7 +15,7 @@ using namespace std;
 
 int main(){
 
-	Shoe s(-1, "asics", "prelude", 132.0);
+	Shoe s(1, "asics", "prelude", 132.0);
 	cout << s.toString() << endl;
 	User u("Lorenzo", "Cozza");
 
