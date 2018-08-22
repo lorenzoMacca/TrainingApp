@@ -35,5 +35,6 @@ trainingApp
 *.db
 
 # xcode files
+/XCodeProject/*
 *.pbxproj
 *.xcworkspacedata
