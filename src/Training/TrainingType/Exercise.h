@@ -3,6 +3,7 @@
 
 #include <Object.h>
 #include <DbObject.h>
+#include <sstream>
 
 enum BodyPart {NA, ABS};
 

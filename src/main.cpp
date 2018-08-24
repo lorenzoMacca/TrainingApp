@@ -17,7 +17,9 @@ using namespace std;
 int main(){
     
     BodyPart bodyPart = ABS;
-    Exercise e(-1, bodyPart, "name");
+    Exercise e(-4, bodyPart, "name");
+    
+    cout << e.toString() << endl;
 
 	Shoe s(1, "asics", "prelude", 132.0);
 	cout << s.toString() << endl;
@@ -81,11 +83,12 @@ int main(){
     dbManager->exec(Training::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
-
+    dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
+    
     dbManager->exec(t.getSqliteStrToInsert(), 0);
     dbManager->exec(s.getSqliteStrToInsert(), 0);
     dbManager->exec(r.getSqliteStrToInsert(), 0);
-
+    dbManager->exec(e.getSqliteStrToInsert(), 0);
 
     List* listTraining = new List;
     List* listShoes = new List;
