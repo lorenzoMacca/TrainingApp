@@ -8,6 +8,7 @@
 #include <List.h>
 #include <Logger.h>
 
+
 class Training : public Object, DbObject{
 
 private:

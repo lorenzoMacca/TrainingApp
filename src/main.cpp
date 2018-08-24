@@ -10,10 +10,14 @@
 #include <unistd.h>
 #include <Run.h>
 #include <Shoe.h>
+#include <Exercise.h>
 
 using namespace std;
 
 int main(){
+    
+    BodyPart bodyPart = ABS;
+    Exercise e(-1, bodyPart, "name");
 
 	Shoe s(1, "asics", "prelude", 132.0);
 	cout << s.toString() << endl;
