@@ -17,7 +17,7 @@ using namespace std;
 int main(){
     
     BodyPart bodyPart = ABS;
-    Exercise e(-4, bodyPart, "name");
+    Exercise e(-4, bodyPart, "ciccio");
     
     cout << e.toString() << endl;
 
@@ -92,8 +92,10 @@ int main(){
 
     List* listTraining = new List;
     List* listShoes = new List;
+    List* listExercise = new List;
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
+    dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();
