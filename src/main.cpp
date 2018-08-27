@@ -11,16 +11,12 @@
 #include <Run.h>
 #include <Shoe.h>
 #include <Exercise.h>
+#include <Abs.h>
 
 using namespace std;
 
 int main(){
     
-    BodyPart bodyPart = ABS;
-    Exercise e(-4, bodyPart, "ciccio");
-    
-    cout << e.toString() << endl;
-
 	Shoe s(1, "asics", "prelude", 132.0);
 	cout << s.toString() << endl;
 	User u("Lorenzo", "Cozza");
@@ -71,6 +67,12 @@ int main(){
     Training *run = new Run(d1, td, s);
     run->getSqliteStrToInsert();
     Logger::getInstance()->log(Logger::INFO, r.toString());
+    
+    //ABS
+    BodyPart bodyPart = ABS;
+    Exercise e(-1, bodyPart, "Plank");
+    Abs abs1(d1, td, 3, 60, e);
+    Logger::getInstance()->log(Logger::INFO, abs1.toString());
 
     cout << t.toString() << endl;
 

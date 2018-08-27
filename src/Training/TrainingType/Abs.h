@@ -4,14 +4,17 @@
 #include <Training.h>
 #include <Logger.h>
 #include <Shoe.h>
+#include <Exercise.h>
 
 class Abs : public Training{
     private:
+        int m_id;
         unsigned int m_set;
         unsigned int m_reps;
+        Exercise m_exercise;
     
     public:
-        Abs(Date*, TrainingDuration);
+        Abs(Date*, TrainingDuration, unsigned int set, unsigned int reps, Exercise e, int id=-1);
     
         //from Training:
         virtual string toString() const;

@@ -1,11 +1,22 @@
 #include "Abs.h"
 
-Abs::Abs(Date* date, TrainingDuration du):Training(date, du){
+Abs::Abs(Date* date, TrainingDuration du, unsigned int set, unsigned int reps, Exercise e, int id):Training(date, du){
+    this->m_id = id;
+    this->m_set = set;
+    this->m_reps = reps;
+    this->m_exercise = e;
 }
 
 //from Training:
 string Abs::toString() const{
-    return "";
+    stringstream sstr;
+    sstr << "[ABS: "
+    << "ID: " << this->m_id << " - "
+    << this->m_exercise.toString() << " - "
+    << "set: " << this->m_set << " - "
+    << "reps: " << this->m_reps
+    << " ]";
+    return sstr.str();
 }
 
 int Abs::compareTo(Object*) const{
