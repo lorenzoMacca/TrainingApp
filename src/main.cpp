@@ -71,7 +71,7 @@ int main(){
     //ABS
     BodyPart bodyPart = ABS;
     Exercise e(-1, bodyPart, "Plank");
-    Abs abs1(d1, td, 3, 60, e);
+    Abs abs1(d1, td, 3, 0, 60 , e);
     Logger::getInstance()->log(Logger::INFO, abs1.toString());
 
     cout << t.toString() << endl;

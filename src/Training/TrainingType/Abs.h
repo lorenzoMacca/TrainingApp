@@ -11,10 +11,11 @@ class Abs : public Training{
         int m_id;
         unsigned int m_set;
         unsigned int m_reps;
+        unsigned int m_time;
         Exercise m_exercise;
     
     public:
-        Abs(Date*, TrainingDuration, unsigned int set, unsigned int reps, Exercise e, int id=-1);
+        Abs(Date*, TrainingDuration, unsigned int set, unsigned int reps, unsigned int time, Exercise e, int id=-1);
     
         //from Training:
         virtual string toString() const;
