@@ -105,6 +105,9 @@ int main(){
     	cout << tmp << endl;
     	(*i)++;
     }*/
+    
+    
+    cout << "Last id insert: " << dbManager->getLastID() << endl;
 
     dbManager->disconnect();
 

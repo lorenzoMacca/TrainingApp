@@ -114,3 +114,7 @@ int DbManager::callbackAfterPragmaCall(void *isForeignKeysEnabled, int argc, cha
     return 0;
 }
 
+unsigned DbManager::getLastID(){
+    return (unsigned) sqlite3_last_insert_rowid(this->m_db);
+}
+

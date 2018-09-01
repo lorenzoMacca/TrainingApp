@@ -27,6 +27,7 @@ public:
     bool init();
     virtual string toString() const;
     virtual int compareTo(Object*) const;
+    virtual unsigned getLastID();
 
     //parameter: query, data to be passed to the callback func, callback func
     virtual bool exec(string sqlQuery=0, void* d=0, int (*callback)(void*,int,char**,char**)=0);
