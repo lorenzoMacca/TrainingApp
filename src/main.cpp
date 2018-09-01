@@ -64,7 +64,7 @@ int main(){
 
     cout << "test run" << endl;
     Run r(d1, td, s, 30);
-    r.setId(1);
+    
     Training *run = new Run(d1, td, s, 45);
     run->getSqliteStrToInsert();
     Logger::getInstance()->log(Logger::INFO, r.toString());
@@ -83,13 +83,17 @@ int main(){
     dbManager->connect();
     dbManager->init();
 
+    //create table
     dbManager->exec(Training::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
     
+     //insert
     dbManager->exec(t.getSqliteStrToInsert(), 0);
+    unsigned idTraining = dbManager->getLastID();
     dbManager->exec(s.getSqliteStrToInsert(), 0);
+    r.setId(idTraining);
     dbManager->exec(r.getSqliteStrToInsert(), 0);
     dbManager->exec(e.getSqliteStrToInsert(), 0);
 
@@ -107,7 +111,6 @@ int main(){
     }*/
     
     
-    cout << "Last id insert: " << dbManager->getLastID() << endl;
 
     dbManager->disconnect();
 
