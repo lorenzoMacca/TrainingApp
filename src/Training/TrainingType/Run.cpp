@@ -1,7 +1,12 @@
 #include "Run.h"
 
-Run::Run(Date* date, TrainingDuration du, Shoe s):Training(date, du){
+Run::Run(Date* date, TrainingDuration du, Shoe s, int km):Training(date, du){
 	this->m_shoe=s;
+    this->m_km=km;
+}
+
+void Run::setId(int id){
+    this->m_id_training = id;
 }
 
 string Run::toString() const{
@@ -22,17 +27,20 @@ string Run::getSqliteStrTocreateTable(){
     stringstream sql;
 	sql << "CREATE TABLE RUN("
 		<< "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        << "ID_TRAINING INTEGER NOT NULL, "
 		<< "KM INTEGER NOT NULL, "
 		<< "ID_SHOE INTEGER NOT NULL, "
-		<< "FOREIGN KEY(ID_SHOE) REFERENCES SHOE(ID)"
+		<< "FOREIGN KEY(ID_SHOE) REFERENCES SHOE(ID), "
+        << "FOREIGN KEY(ID_TRAINING) REFERENCES TRAINING(ID)"
 		<< ");";
 	return sql.str();
 }
 
 string Run::getSqliteStrToInsert()const{
     stringstream sql;
-	sql << "INSERT INTO RUN (KM, ID_SHOE) "
+	sql << "INSERT INTO RUN (ID_TRAINING, KM, ID_SHOE) "
 		<< "VALUES ("
+        << this->m_id_training << ", "
 		<< this->m_km << ", "
 		<< this->m_shoe.getId()
 		<< ");";

@@ -11,13 +11,15 @@
 
 class Training : public Object, DbObject{
 
-private:
+protected:
+    int m_id_training;
     Date* m_date;
     string m_comment;
     TrainingDuration m_trainingDuration;
 
 public:
-    Training(Date*, TrainingDuration);
+    Training(int id=-1, Date* d = 0, TrainingDuration t=0);
+    Training(Date* , TrainingDuration);
     virtual string toString() const;
     virtual int compareTo(Object*) const;
     Date* getDate()const;

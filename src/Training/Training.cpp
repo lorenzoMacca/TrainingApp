@@ -1,5 +1,11 @@
 #include "Training.h"
 
+Training::Training(int id, Date* d, TrainingDuration t){
+    this->m_date = d;
+    this->m_trainingDuration = t;
+    this->m_id_training = id;
+}
+
 Training::Training(Date* d, TrainingDuration t){
     this->m_date = d;
     this->m_trainingDuration = t;
@@ -8,6 +14,7 @@ Training::Training(Date* d, TrainingDuration t){
 string Training::toString() const{
 	stringstream res;
 	res <<  "[Training: ";
+    res << "ID: " << this->m_id_training << " - ";
     res << this->m_date->toString() << " - ";
     res << this->m_trainingDuration.toString() << " - ";
     res << "Comment: " << this->m_comment;
@@ -73,6 +80,7 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 	if(list_Not_casted == 0) return 0;
 	List* list = static_cast<List*>(list_Not_casted);
 	int i;
+    int id = -1;
 	Date *d = 0;
 	string comment = "";
 	unsigned int timeDuration = 0;
@@ -84,10 +92,12 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 			comment=argv[i];
 		}else if(columnNme == "DURATION"){
 			timeDuration = stoi(argv[i]);
-		}
+        }else if(columnNme == "ID"){
+            id = stoi(argv[i]);
+        }
 	}
 	TrainingDuration trainingDuration(timeDuration);
-	Training *t = new Training(d, trainingDuration);
+	Training *t = new Training(id, d, trainingDuration);
 	t->setComment(comment);
 	Logger::getInstance()->log(Logger::INFO, "DbManager: Training instance created: " + t->toString() );
 	list->pushBack(t);

@@ -57,14 +57,15 @@ int main(){
 
     TrainingDuration td(60);
 
-    Training t(d1, td);
+    Training t(1, d1, td);
     t.setComment("pippo");
     List l;
     l.pushBack(&t);
 
     cout << "test run" << endl;
-    Run r(d1, td, s);
-    Training *run = new Run(d1, td, s);
+    Run r(d1, td, s, 30);
+    r.setId(1);
+    Training *run = new Run(d1, td, s, 45);
     run->getSqliteStrToInsert();
     Logger::getInstance()->log(Logger::INFO, r.toString());
     

@@ -27,7 +27,14 @@ int Abs::compareTo(Object*) const{
 
 //from DbObject
 string Abs::getSqliteStrTocreateTable(){
-    return "";
+    stringstream sql;
+    sql << "CREATE TABLE ABS("
+    << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+    << "KM INTEGER NOT NULL, "
+    << "ID_SHOE INTEGER NOT NULL, "
+    << "FOREIGN KEY(ID_SHOE) REFERENCES SHOE(ID)"
+    << ");";
+    return sql.str();
 }
 
 string Abs::getSqliteStrToInsert()const{

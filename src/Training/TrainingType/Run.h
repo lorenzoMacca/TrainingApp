@@ -13,7 +13,8 @@ class Run : public Training{
 
 
 	public:
-		Run(Date*, TrainingDuration, Shoe s);
+		Run(Date*, TrainingDuration, Shoe s, int km);
+        void setId(int);
 
 		//from Training:
 		virtual string toString() const;
