@@ -20,15 +20,18 @@ protected:
 public:
     Training(int id=-1, Date* d = 0, TrainingDuration t=0);
     Training(Date* , TrainingDuration);
-    virtual string toString() const;
-    virtual int compareTo(Object*) const;
     Date* getDate()const;
     void setDate(Date*);
     TrainingDuration getTrainingDuration()const;
     void setTrainingDuration(TrainingDuration);
     void setComment(string s);
     string getComment()const;
+    string toString(const Training*) const;
 
+    //from Object
+    virtual string toString() const;
+    virtual int compareTo(Object*) const;
+    
     //from DbObject
     static string getSqliteStrTocreateTable();
     virtual string getSqliteStrToInsert()const;

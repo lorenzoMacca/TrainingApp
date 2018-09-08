@@ -19,7 +19,18 @@ string Training::toString() const{
     res << this->m_trainingDuration.toString() << " - ";
     res << "Comment: " << this->m_comment;
     res << "]";
-    return res.str();;
+    return res.str();
+}
+
+string Training::toString(const Training* t) const{
+    stringstream res;
+    res <<  "[Training: ";
+    res << "ID: " << t->m_id_training << " - ";
+    res << t->m_date->toString() << " - ";
+    res << t->m_trainingDuration.toString() << " - ";
+    res << "Comment: " << t->m_comment;
+    res << "]";
+    return res.str();
 }
 
 int Training::compareTo(Object* o) const{

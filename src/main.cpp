@@ -89,7 +89,7 @@ int main(){
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
     
-     //insert
+    //insert
     dbManager->exec(t.getSqliteStrToInsert(), 0);
     unsigned idTraining = dbManager->getLastID();
     dbManager->exec(s.getSqliteStrToInsert(), 0);
@@ -100,9 +100,11 @@ int main(){
     List* listTraining = new List;
     List* listShoes = new List;
     List* listExercise = new List;
+    List* listRun = new List;
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
+    dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, NULL);
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();

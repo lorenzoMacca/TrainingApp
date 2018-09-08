@@ -10,9 +10,11 @@ void Run::setId(int id){
 }
 
 string Run::toString() const{
+    //const Training*  = this;
 	stringstream str;
     str << "[RUN:"
         << "Km:" << this->m_km << " - "
+        << this->Training::toString(this)
         << this->m_shoe.toString()
         << "]";
 	return str.str();
@@ -48,6 +50,5 @@ string Run::getSqliteStrToInsert()const{
 }
 
 string Run::getSqliteStrToGetAllRecords(){
-	//TODO implementation is missing
-	return "";
+    return "select * from RUN, TRAINING, SHOE where RUN.ID_TRAINING=TRAINING.ID and RUN.ID_SHOE=SHOE.ID";
 }
