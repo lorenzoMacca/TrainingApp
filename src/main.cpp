@@ -93,7 +93,7 @@ int main(){
     dbManager->exec(t.getSqliteStrToInsert(), 0);
     unsigned idTraining = dbManager->getLastID();
     dbManager->exec(s.getSqliteStrToInsert(), 0);
-    r.setId(idTraining);
+    r.setTrainingId(idTraining);
     dbManager->exec(r.getSqliteStrToInsert(), 0);
     dbManager->exec(e.getSqliteStrToInsert(), 0);
 
@@ -104,7 +104,7 @@ int main(){
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
-    dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, NULL);
+    dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, Run::callbackAfterSelect);
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();

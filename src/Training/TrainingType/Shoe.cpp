@@ -42,6 +42,7 @@ string Shoe::getSqliteStrToInsert()const{
 string Shoe::getSqliteStrToGetAllRecords(){
 	return "select * from SHOE";
 }
+
 int Shoe::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
     if(list_Not_casted == 0) return 0;
     List* list = static_cast<List*>(list_Not_casted);
