@@ -10,6 +10,10 @@ unsigned int Exercise::getId()const{
     return this->m_id;
 }
 
+void Exercise::setId(unsigned int id){
+    this->m_id = id;
+}
+
 string Exercise::toString() const{
     stringstream sstr;
     sstr << "[Exercise: "

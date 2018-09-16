@@ -7,6 +7,10 @@ Abs::Abs(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, 
     this->m_exercise = e;
 }
 
+Exercise& Abs::getExercise(){
+    return this->m_exercise;
+}
+
 //from Training:
 string Abs::toString() const{
     stringstream sstr;

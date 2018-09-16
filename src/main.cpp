@@ -97,6 +97,10 @@ int main(){
     r.setTrainingId(idTraining);
     dbManager->exec(r.getSqliteStrToInsert(), 0);
     dbManager->exec(e.getSqliteStrToInsert(), 0);
+    unsigned idExercise = dbManager->getLastID();
+    abs1.getExercise().setId(idExercise);
+    dbManager->exec(abs1.getSqliteStrToInsert(), 0);
+    
 
     List* listTraining = new List;
     List* listShoes = new List;

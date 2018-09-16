@@ -19,6 +19,7 @@ class Abs : public Training{
         //from Training:
         virtual string toString() const;
         virtual int compareTo(Object*) const;
+        Exercise& getExercise();
     
         //from DbObject
         static string getSqliteStrTocreateTable();

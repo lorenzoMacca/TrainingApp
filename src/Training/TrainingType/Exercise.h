@@ -21,6 +21,7 @@ class Exercise : public Object, DbObject{
     
         Exercise(int id=-1, BodyPart bodyPart=NA, string name="");
         unsigned int getId()const;
+        void setId(unsigned int);
     
         //from Object
         virtual string toString() const;
