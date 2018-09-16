@@ -9,13 +9,12 @@
 class Abs : public Training{
     private:
         int m_id;
-        unsigned int m_set;
+        Exercise m_exercise;
         unsigned int m_reps;
         unsigned int m_time;
-        Exercise m_exercise;
     
     public:
-        Abs(Date*, TrainingDuration, unsigned int set, unsigned int reps, unsigned int time, Exercise e, int id=-1);
+        Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, Exercise e, int id=-1);
     
         //from Training:
         virtual string toString() const;

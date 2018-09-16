@@ -6,6 +6,10 @@ Exercise::Exercise(int id, BodyPart bodyPart, string name){
     this->m_name = name;
 }
 
+unsigned int Exercise::getId()const{
+    return this->m_id;
+}
+
 string Exercise::toString() const{
     stringstream sstr;
     sstr << "[Exercise: "

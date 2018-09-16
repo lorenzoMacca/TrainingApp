@@ -72,7 +72,7 @@ int main(){
     //ABS
     BodyPart bodyPart = ABS;
     Exercise e(-1, bodyPart, "Plank");
-    Abs abs1(d1, td, 3, 0, 60 , e);
+    Abs abs1(d1, td, 0, 60 , e);
     Logger::getInstance()->log(Logger::INFO, abs1.toString());
 
     cout << t.toString() << endl;
@@ -88,6 +88,7 @@ int main(){
     dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
+    dbManager->exec(Abs::getSqliteStrTocreateTable(), 0);
     
     //insert
     dbManager->exec(t.getSqliteStrToInsert(), 0);

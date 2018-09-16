@@ -20,6 +20,7 @@ class Exercise : public Object, DbObject{
     public:
     
         Exercise(int id=-1, BodyPart bodyPart=NA, string name="");
+        unsigned int getId()const;
     
         //from Object
         virtual string toString() const;
