@@ -15,6 +15,7 @@ class Abs : public Training{
     
     public:
         Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, Exercise e, int id=-1);
+        void setTrainingId(int);
     
         //from Training:
         virtual string toString() const;
@@ -25,6 +26,9 @@ class Abs : public Training{
         static string getSqliteStrTocreateTable();
         virtual string getSqliteStrToInsert()const;
         static string getSqliteStrToGetAllRecords();
+    
+        //callback funcs
+        static int callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName);
 
 };
 

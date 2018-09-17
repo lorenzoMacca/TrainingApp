@@ -99,7 +99,7 @@ int Run::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
             comment=argv[i];
         }else if(columnNme == "DURATION"){
             timeDuration = stoi(argv[i]);
-        }else if(columnNme == "ID"){
+        }else if(columnNme == "TRAINING_ID"){
             trainingId = stoi(argv[i]);
         }
     }

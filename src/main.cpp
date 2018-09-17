@@ -57,8 +57,10 @@ int main(){
 
     TrainingDuration td(60);
 
-    Training t(1, d1, td);
+    Training t(-1, d1, td);
     t.setComment("pippo");
+    Training t1(-1, d1, td);
+    t.setComment("pluto");
     List l;
     l.pushBack(&t);
 
@@ -98,7 +100,10 @@ int main(){
     dbManager->exec(r.getSqliteStrToInsert(), 0);
     dbManager->exec(e.getSqliteStrToInsert(), 0);
     unsigned idExercise = dbManager->getLastID();
+    dbManager->exec(t1.getSqliteStrToInsert(), 0);
+    unsigned idTraining1 = dbManager->getLastID();
     abs1.getExercise().setId(idExercise);
+    abs1.setTrainingId(idTraining1);
     dbManager->exec(abs1.getSqliteStrToInsert(), 0);
     
 
@@ -106,10 +111,12 @@ int main(){
     List* listShoes = new List;
     List* listExercise = new List;
     List* listRun = new List;
+    List* listAbs = new List;
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
     dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, Run::callbackAfterSelect);
+    dbManager->exec(Abs::getSqliteStrToGetAllRecords(), listAbs, Abs::callbackAfterSelect);
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();
