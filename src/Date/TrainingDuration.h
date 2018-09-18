@@ -7,18 +7,19 @@
 class TrainingDuration : public Object{
 
 private:
-    unsigned int m_durationInMin;
+    float m_durationInMin;
 
 public:
     static const int HOURS = 0;
     static const int MINUTES = 1;
+    static const int SECONDS = 2;
 
-    TrainingDuration(unsigned int );
+    TrainingDuration(float );
     TrainingDuration();
     virtual string toString() const;
     virtual int compareTo(Object*) const;
-    int getDuration(int type=MINUTES)const;
-    void setDuration(unsigned int);
+    float getDuration(int type=MINUTES)const;
+    void setDuration(float);
 
 };
 

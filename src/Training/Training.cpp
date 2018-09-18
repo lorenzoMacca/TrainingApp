@@ -73,7 +73,7 @@ string Training::getSqliteStrTocreateTable(){
 	sql << "CREATE TABLE TRAINING("
 		<< "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
 		<< "DATE TEXT NOT NULL, "
-		<< "DURATION INTEGER NOT NULL, "
+		<< "DURATION REAL NOT NULL, "
 		<< "COMMENT TEXT);";
 	return sql.str();
 }
@@ -98,7 +98,7 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
     int id = -1;
 	Date *d = 0;
 	string comment = "";
-	unsigned int timeDuration = 0;
+	float timeDuration = 0;
 	for(i = 0; i<argc; i++) {
 		string columnNme(azColName[i]);
 		if(columnNme == "DATE"){
@@ -106,7 +106,7 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 		}else if(columnNme == "COMMENT"){
 			comment=argv[i];
 		}else if(columnNme == "DURATION"){
-			timeDuration = stoi(argv[i]);
+			timeDuration = stof(argv[i]);
         }else if(columnNme == "ID"){
             id = stoi(argv[i]);
         }

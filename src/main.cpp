@@ -54,7 +54,7 @@ int main(){
 
     cout << res << endl;
 
-    TrainingDuration td(60);
+    TrainingDuration td(60.2);
 
     
     DbManager* dbManager = DbManager::getInstance();
@@ -82,7 +82,7 @@ int main(){
     ((Run*)run)->setShoeId(idShoe);
     dbManager->exec(run->getSqliteStrToInsert(), 0);
     
-    TrainingDuration tdBreak1(3);
+    TrainingDuration tdBreak1(3.5);
     Break* break1 = new Break(tdBreak1);
     
     //insert Exercise
@@ -99,7 +99,7 @@ int main(){
     dbManager->exec(abs1->getSqliteStrToInsert(), 0);
     
     //insert SWIM
-    TrainingDuration tdSwim(31);
+    TrainingDuration tdSwim(31.4);
     Training *swim1 = new Swim(d1, tdSwim, 0.750);
     dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
     swim1->setTrainingId(dbManager->getLastID());

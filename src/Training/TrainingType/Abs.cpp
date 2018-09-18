@@ -77,7 +77,7 @@ int Abs::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
     unsigned int time = 0;
     unsigned int weight = 0;
     //training
-    unsigned int timeDuration = 0;
+    float timeDuration = 0;
     int trainingId = -1;
     Date *d = 0;
     string comment = "";
@@ -100,7 +100,7 @@ int Abs::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
         }else if(columnNme == "COMMENT"){
             comment=argv[i];
         }else if(columnNme == "DURATION"){
-            timeDuration = stoi(argv[i]);
+            timeDuration = stof(argv[i]);
         }else if(columnNme == "TRAINING_ID"){
             trainingId = stoi(argv[i]);
         }else if(columnNme == "WEIGHT"){

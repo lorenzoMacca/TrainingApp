@@ -62,7 +62,7 @@ int Swim::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
     int trainingId = -1;
     Date *d = 0;
     string comment = "";
-    unsigned int timeDuration = 0;
+    float timeDuration = 0;
     for(int i = 0; i<argc; i++) {
         string columnNme(azColName[i]);
         if(columnNme == "SWIM_ID"){
@@ -74,7 +74,7 @@ int Swim::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
         }else if(columnNme == "COMMENT"){
             comment=argv[i];
         }else if(columnNme == "DURATION"){
-            timeDuration = stoi(argv[i]);
+            timeDuration = stof(argv[i]);
         }else if(columnNme == "TRAINING_ID"){
             trainingId = stoi(argv[i]);
         }

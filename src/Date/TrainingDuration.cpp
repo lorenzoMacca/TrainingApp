@@ -1,11 +1,11 @@
 #include "TrainingDuration.h"
 
-TrainingDuration::TrainingDuration(unsigned int d){
+TrainingDuration::TrainingDuration(float d){
     this->m_durationInMin = d;
 }
 
 TrainingDuration::TrainingDuration(){
-    this->m_durationInMin = 0;
+    this->m_durationInMin = 0.0;
 }
 
 string TrainingDuration::toString() const{
@@ -24,13 +24,15 @@ int TrainingDuration::compareTo(Object* o) const{
     return 0;
 }
 
-int TrainingDuration::getDuration(int type)const{
+float TrainingDuration::getDuration(int type)const{
     if(type == HOURS){
             return this->m_durationInMin/60.0;
+    }else if(type == SECONDS){
+        //TODO: return the right number in seconds
     }
     return this->m_durationInMin;
 }
 
-void TrainingDuration::setDuration(unsigned int d){
+void TrainingDuration::setDuration(float d){
     this->m_durationInMin = d;
 }
