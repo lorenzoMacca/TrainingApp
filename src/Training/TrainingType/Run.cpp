@@ -1,12 +1,12 @@
 #include "Run.h"
 
-Run::Run(Date* date, TrainingDuration du, Shoe s, int km):Training(date, du){
+Run::Run(Date* date, TrainingDuration du, Shoe s, float km):Training(date, du){
 	this->m_shoe=s;
     this->m_km=km;
     this->m_id=-1;
 }
 
-Run::Run(Date* date, TrainingDuration du, Shoe s, int km, int id):Training(date, du){
+Run::Run(Date* date, TrainingDuration du, Shoe s, float km, int id):Training(date, du){
     this->m_shoe=s;
     this->m_km=km;
     this->m_id=id;
@@ -38,7 +38,7 @@ string Run::getSqliteStrTocreateTable(){
 	sql << "CREATE TABLE RUN("
 		<< "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
         << "ID_TRAINING INTEGER NOT NULL, "
-		<< "KM INTEGER NOT NULL, "
+		<< "KM REAL NOT NULL, "
 		<< "ID_SHOE INTEGER NOT NULL, "
 		<< "FOREIGN KEY(ID_SHOE) REFERENCES SHOE(ID), "
         << "FOREIGN KEY(ID_TRAINING) REFERENCES TRAINING(ID)"
@@ -68,7 +68,7 @@ int Run::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
     List* list = static_cast<List*>(list_Not_casted);
     //run
     int runId = -1;
-    int km = 0;
+    float km = 0;
     //shoe
     int shoeId = -1;
     string brand = "";
@@ -84,7 +84,7 @@ int Run::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
         if(columnNme == "RUN_ID"){
             runId=stoi(argv[i]);
         }else if(columnNme == "KM"){
-            km=stoi(argv[i]);
+            km=stof(argv[i]);
         }else if(columnNme == "SHOE_ID"){
             shoeId=stoi(argv[i]);
         }else if(columnNme == "BRAND"){

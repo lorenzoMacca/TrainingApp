@@ -61,7 +61,7 @@ int main(){
     cout << "test run" << endl;
     //Run r(d1, td, s, 30);
     
-    Training *run = new Run(d1, td, s, 45);
+    Training *run = new Run(d1, td, s, 21.2);
     //run->getSqliteStrToInsert();
     Logger::getInstance()->log(Logger::INFO, run->toString());
     

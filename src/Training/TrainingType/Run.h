@@ -9,13 +9,13 @@ class Run : public Training{
 
 	private:
         int m_id;
-		unsigned m_km;
+		float m_km;
 		Shoe m_shoe;
 
 
 	public:
-		Run(Date*, TrainingDuration, Shoe s, int km);
-        Run(Date*, TrainingDuration, Shoe s, int km, int m_id);
+		Run(Date*, TrainingDuration, Shoe s, float km);
+        Run(Date*, TrainingDuration, Shoe s, float km, int m_id);
         void setShoeId(int i);
 
 		//from Training:
