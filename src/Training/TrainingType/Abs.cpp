@@ -8,10 +8,6 @@ Abs::Abs(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, 
     this->m_exercise = e;
 }
 
-void Abs::setTrainingId(int id){
-    this->m_id_training = id;
-}
-
 Exercise& Abs::getExercise(){
     return this->m_exercise;
 }

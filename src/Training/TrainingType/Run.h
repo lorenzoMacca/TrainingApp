@@ -16,7 +16,7 @@ class Run : public Training{
 	public:
 		Run(Date*, TrainingDuration, Shoe s, int km);
         Run(Date*, TrainingDuration, Shoe s, int km, int m_id);
-        void setTrainingId(int);
+        void setShoeId(int i);
 
 		//from Training:
 		virtual string toString() const;

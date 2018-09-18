@@ -61,18 +61,18 @@ int main(){
     cout << "test run" << endl;
     //Run r(d1, td, s, 30);
     
-    Run *run = new Run(d1, td, s, 45);
+    Training *run = new Run(d1, td, s, 45);
     //run->getSqliteStrToInsert();
     Logger::getInstance()->log(Logger::INFO, run->toString());
     
     //Swim
     TrainingDuration tdSwim(31);
-    Swim *swim1 = new Swim(d1, tdSwim, 1);
+    Training *swim1 = new Swim(d1, tdSwim, 1);
     
     //ABS
     BodyPart bodyPart = ABS;
     Exercise e(-1, bodyPart, "Plank");
-    Abs *abs1 = new Abs(d1, td, 0, 60, 0 , e);
+    Training *abs1 = new Abs(d1, td, 0, 60, 0 , e);
     Logger::getInstance()->log(Logger::INFO, abs1->toString());
 
     
@@ -95,7 +95,7 @@ int main(){
     dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
     run->setTrainingId(dbManager->getLastID());
     dbManager->exec(s.getSqliteStrToInsert(), 0);
-    s.setId(dbManager->getLastID());
+    ((Run*)run)->setShoeId(dbManager->getLastID());
     dbManager->exec(run->getSqliteStrToInsert(), 0);
     
     //insert Exercise
@@ -103,7 +103,7 @@ int main(){
     unsigned idExercise = dbManager->getLastID();
     
     //insert Abs
-    abs1->getExercise().setId(idExercise);
+    ((Abs*)abs1)->getExercise().setId(idExercise);
     dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
     abs1->setTrainingId(dbManager->getLastID());
     dbManager->exec(abs1->getSqliteStrToInsert(), 0);

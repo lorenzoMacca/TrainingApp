@@ -27,6 +27,7 @@ public:
     void setComment(string s);
     string getComment()const;
     string toString(const Training*) const;
+    virtual void setTrainingId(int idTraining);
 
     //from Object
     virtual string toString() const;

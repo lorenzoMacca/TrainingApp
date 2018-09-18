@@ -11,6 +11,10 @@ Training::Training(Date* d, TrainingDuration t){
     this->m_trainingDuration = t;
 }
 
+void Training::setTrainingId(int idTraining){
+    this->m_id_training = idTraining;
+}
+
 string Training::toString() const{
 	stringstream res;
 	res <<  "[Training: ";

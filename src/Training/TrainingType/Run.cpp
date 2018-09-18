@@ -12,8 +12,8 @@ Run::Run(Date* date, TrainingDuration du, Shoe s, int km, int id):Training(date,
     this->m_id=id;
 }
 
-void Run::setTrainingId(int id){
-    this->m_id_training = id;
+void Run::setShoeId(int i){
+    this->m_shoe.setId(i);
 }
 
 string Run::toString() const{
