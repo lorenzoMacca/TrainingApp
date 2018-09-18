@@ -13,6 +13,7 @@
 #include <Exercise.h>
 #include <Abs.h>
 #include <Swim.h>
+#include <break.h>
 
 using namespace std;
 
@@ -80,6 +81,9 @@ int main(){
     run->setTrainingId(dbManager->getLastID());
     ((Run*)run)->setShoeId(idShoe);
     dbManager->exec(run->getSqliteStrToInsert(), 0);
+    
+    TrainingDuration tdBreak1(3);
+    Break* break1 = new Break(tdBreak1);
     
     //insert Exercise
     BodyPart bodyPart = ABS;

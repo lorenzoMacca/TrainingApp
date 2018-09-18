@@ -18,7 +18,7 @@ LIB = ./ext/DataStructure
 DATA_STRUCTURE_LIB_NAME = dataStructure
 DATA_STRUCTURE_LIB = lib$(DATA_STRUCTURE_LIB_NAME).a
 
-OBJS = Swim.o Exercise.o Abs.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o main.o
+OBJS = Break.o Swim.o Exercise.o Abs.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o main.o
 
 LIST_OBJS=$(addprefix $(OBJ)/, $(OBJS))
 
@@ -37,6 +37,9 @@ $(OBJ)/DbManager.o: src/db/DbManager.cpp
 	$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
 
 $(OBJ)/Training.o: src/Training/Training.cpp
+	$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
+
+$(OBJ)/Break.o: src/Training/Break.cpp
 	$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
 
 $(OBJ)/TrainingDuration.o: src/Date/TrainingDuration.cpp
