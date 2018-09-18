@@ -95,7 +95,7 @@ int main(){
     dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
     run->setTrainingId(dbManager->getLastID());
     dbManager->exec(s.getSqliteStrToInsert(), 0);
-    ((Run*)run)->setShoeId(dbManager->getLastID());
+    ((Run*)run)->setShoeId(dbManager->getLastID()); //cuz the id wasn't set at initialization time
     dbManager->exec(run->getSqliteStrToInsert(), 0);
     
     //insert Exercise
@@ -119,11 +119,14 @@ int main(){
     List* listExercise = new List;
     List* listRun = new List;
     List* listAbs = new List;
+    List* listSwim = new List;
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
     dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, Run::callbackAfterSelect);
     dbManager->exec(Abs::getSqliteStrToGetAllRecords(), listAbs, Abs::callbackAfterSelect);
+    dbManager->exec(Swim::getSqliteStrToGetAllRecords(), listSwim, Swim::callbackAfterSelect);
+    
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
     	string tmp = i->getCurrentValue()->toString();
