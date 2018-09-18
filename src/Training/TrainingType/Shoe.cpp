@@ -20,6 +20,10 @@ string Shoe::toString() const{
 
 int Shoe::compareTo(Object*) const{return -2;}
 
+void Shoe::setId(int i){
+    this->m_id_db = i;
+}
+
 string Shoe::getSqliteStrTocreateTable(){
 	stringstream sql;
 	sql << "CREATE TABLE SHOE("

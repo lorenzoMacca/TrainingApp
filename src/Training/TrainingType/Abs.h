@@ -12,9 +12,10 @@ class Abs : public Training{
         Exercise m_exercise;
         unsigned int m_reps;
         unsigned int m_time;
+        unsigned int m_weight;
     
     public:
-        Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, Exercise e, int id=-1);
+        Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
         void setTrainingId(int);
     
         //from Training:

@@ -12,12 +12,13 @@
 #include <Shoe.h>
 #include <Exercise.h>
 #include <Abs.h>
+#include <Swim.h>
 
 using namespace std;
 
 int main(){
     
-	Shoe s(1, "asics", "prelude", 132.0);
+	Shoe s(0, "asics", "prelude", 132.0);
 	cout << s.toString() << endl;
 	User u("Lorenzo", "Cozza");
 
@@ -57,27 +58,24 @@ int main(){
 
     TrainingDuration td(60);
 
-    Training t(-1, d1, td);
-    t.setComment("pippo");
-    Training t1(-1, d1, td);
-    t.setComment("pluto");
-    List l;
-    l.pushBack(&t);
-
     cout << "test run" << endl;
-    Run r(d1, td, s, 30);
+    //Run r(d1, td, s, 30);
     
-    Training *run = new Run(d1, td, s, 45);
-    run->getSqliteStrToInsert();
-    Logger::getInstance()->log(Logger::INFO, r.toString());
+    Run *run = new Run(d1, td, s, 45);
+    //run->getSqliteStrToInsert();
+    Logger::getInstance()->log(Logger::INFO, run->toString());
+    
+    //Swim
+    TrainingDuration tdSwim(31);
+    Swim *swim1 = new Swim(d1, tdSwim, 1);
     
     //ABS
     BodyPart bodyPart = ABS;
     Exercise e(-1, bodyPart, "Plank");
-    Abs abs1(d1, td, 0, 60 , e);
-    Logger::getInstance()->log(Logger::INFO, abs1.toString());
+    Abs *abs1 = new Abs(d1, td, 0, 60, 0 , e);
+    Logger::getInstance()->log(Logger::INFO, abs1->toString());
 
-    cout << t.toString() << endl;
+    
 
     DbManager* dbManager = DbManager::getInstance();
     cout << dbManager->toString() << endl;
@@ -91,20 +89,29 @@ int main(){
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Abs::getSqliteStrTocreateTable(), 0);
+    dbManager->exec(Swim::getSqliteStrTocreateTable(), 0);
     
-    //insert
-    dbManager->exec(t.getSqliteStrToInsert(), 0);
-    unsigned idTraining = dbManager->getLastID();
+    //insert Run
+    dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
+    run->setTrainingId(dbManager->getLastID());
     dbManager->exec(s.getSqliteStrToInsert(), 0);
-    r.setTrainingId(idTraining);
-    dbManager->exec(r.getSqliteStrToInsert(), 0);
+    s.setId(dbManager->getLastID());
+    dbManager->exec(run->getSqliteStrToInsert(), 0);
+    
+    //insert Exercise
     dbManager->exec(e.getSqliteStrToInsert(), 0);
     unsigned idExercise = dbManager->getLastID();
-    dbManager->exec(t1.getSqliteStrToInsert(), 0);
-    unsigned idTraining1 = dbManager->getLastID();
-    abs1.getExercise().setId(idExercise);
-    abs1.setTrainingId(idTraining1);
-    dbManager->exec(abs1.getSqliteStrToInsert(), 0);
+    
+    //insert Abs
+    abs1->getExercise().setId(idExercise);
+    dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
+    abs1->setTrainingId(dbManager->getLastID());
+    dbManager->exec(abs1->getSqliteStrToInsert(), 0);
+    
+    //insert SWIM
+    dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
+    swim1->setTrainingId(dbManager->getLastID());
+    dbManager->exec(swim1->getSqliteStrToInsert(), 0);
     
 
     List* listTraining = new List;

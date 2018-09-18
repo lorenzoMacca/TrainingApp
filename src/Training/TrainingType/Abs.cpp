@@ -1,9 +1,10 @@
 #include "Abs.h"
 
-Abs::Abs(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, Exercise e, int id):Training(date, du){
+Abs::Abs(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id):Training(date, du){
     this->m_id = id;
     this->m_reps = reps;
     this->m_time = time;
+    this->m_weight = weight;
     this->m_exercise = e;
 }
 
@@ -21,8 +22,9 @@ string Abs::toString() const{
     sstr << "[ABS: "
     << "ID: " << this->m_id << " - "
     << this->m_exercise.toString() << " - "
-    << "reps: " << this->m_reps << " - "
-    << "time: " << this->m_time << " - "
+    << "Reps: " << this->m_reps << " - "
+    << "Time: " << this->m_time << " - "
+    << "Weight: " << this->m_weight << " - "
     << this->Training::toString(this)
     << " ]";
     return sstr.str();
@@ -39,6 +41,7 @@ string Abs::getSqliteStrTocreateTable(){
     << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
     << "REPS INTEGER NOT NULL, "
     << "TIME INTEGER NOT NULL, "
+    << "WEIGHT INTEGER NOT NULL, "
     << "ID_EXERCISE INTEGER NOT NULL, "
     << "ID_TRAINING INTEGER NOT NULL, "
     << "FOREIGN KEY(ID_EXERCISE) REFERENCES EXERCISE(ID)"
@@ -49,10 +52,11 @@ string Abs::getSqliteStrTocreateTable(){
 
 string Abs::getSqliteStrToInsert()const{
     stringstream sql;
-    sql << "INSERT INTO ABS (REPS, TIME, ID_EXERCISE, ID_TRAINING) "
+    sql << "INSERT INTO ABS (REPS, TIME, WEIGHT, ID_EXERCISE, ID_TRAINING) "
     << "VALUES ("
     << this->m_reps << ", "
     << this->m_time << ", "
+    << this->m_weight << ", "
     << this->m_exercise.getId() << ", "
     << this->m_id_training
     << ");";
@@ -75,6 +79,7 @@ int Abs::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
     int absId = -1;
     unsigned int reps = 0;
     unsigned int time = 0;
+    unsigned int weight = 0;
     //training
     unsigned int timeDuration = 0;
     int trainingId = -1;
@@ -102,11 +107,13 @@ int Abs::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
             timeDuration = stoi(argv[i]);
         }else if(columnNme == "TRAINING_ID"){
             trainingId = stoi(argv[i]);
+        }else if(columnNme == "WEIGHT"){
+            weight = stoi(argv[i]);
         }
     }
     Exercise e(exerciseId, bodyPart, name);
     TrainingDuration trainingDuration(timeDuration);
-    Abs *abs = new Abs(d, trainingDuration, reps, time, e, absId);
+    Abs *abs = new Abs(d, trainingDuration, reps, time, weight, e, absId);
     abs->setTrainingId(trainingId);
     Logger::getInstance()->log(Logger::INFO, "DbManager: ABS instance created: " + abs->toString() );
     list->pushBack(abs);
