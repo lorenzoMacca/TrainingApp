@@ -8,6 +8,7 @@ OBJ = ./obj
 INC = -I ./ext/DataStructure \
       -I ./src/Date          \
       -I ./src/Training      \
+      -I ./src/Session      \
       -I ./src/db            \
 	  -I ./src/User          \
 	  -I ./src/logger        \
@@ -18,7 +19,7 @@ LIB = ./ext/DataStructure
 DATA_STRUCTURE_LIB_NAME = dataStructure
 DATA_STRUCTURE_LIB = lib$(DATA_STRUCTURE_LIB_NAME).a
 
-OBJS = Break.o Swim.o Exercise.o Abs.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o main.o
+OBJS = Session.o Break.o Swim.o Exercise.o Abs.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o main.o
 
 LIST_OBJS=$(addprefix $(OBJ)/, $(OBJS))
 
@@ -40,6 +41,9 @@ $(OBJ)/Training.o: src/Training/Training.cpp
 	$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
 
 $(OBJ)/Break.o: src/Training/Break.cpp
+	$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
+
+$(OBJ)/Session.o: src/Session/Session.cpp
 	$(CC) $(CPPFLAGS) $(INC) -c $< -o $@
 
 $(OBJ)/TrainingDuration.o: src/Date/TrainingDuration.cpp

@@ -13,7 +13,8 @@
 #include <Exercise.h>
 #include <Abs.h>
 #include <Swim.h>
-#include <break.h>
+#include <Break.h>
+#include <Session.h>
 
 using namespace std;
 
@@ -68,6 +69,9 @@ int main(){
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Abs::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Swim::getSqliteStrTocreateTable(), 0);
+    
+    //start session
+    Session session;
     
     
     //insert Shoe
