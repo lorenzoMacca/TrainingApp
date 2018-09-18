@@ -8,12 +8,12 @@ class Swim : public Training{
 
 	private:
         int m_id;
-		unsigned m_km;
+		float m_km;
 
 
 	public:
-		Swim(Date*, TrainingDuration, int km);
-        Swim(Date*, TrainingDuration, int km, int m_id);
+		Swim(Date*, TrainingDuration, float km);
+        Swim(Date*, TrainingDuration, float km, int m_id);
 
 		//from Training:
 		virtual string toString() const;

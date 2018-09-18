@@ -18,13 +18,10 @@ using namespace std;
 
 int main(){
     
-	Shoe s(0, "asics", "prelude", 132.0);
-	cout << s.toString() << endl;
-	User u("Lorenzo", "Cozza");
-
     Logger::getInstance()->enable();
     Logger::getInstance()->log(Logger::INFO, "I'm the best logger ever");
 
+    User u("Lorenzo", "Cozza");
     Logger::getInstance()->log(Logger::INFO, u.toString());
 
 
@@ -58,28 +55,8 @@ int main(){
 
     TrainingDuration td(60);
 
-    cout << "test run" << endl;
-    //Run r(d1, td, s, 30);
     
-    Training *run = new Run(d1, td, s, 21.2);
-    //run->getSqliteStrToInsert();
-    Logger::getInstance()->log(Logger::INFO, run->toString());
-    
-    //Swim
-    TrainingDuration tdSwim(31);
-    Training *swim1 = new Swim(d1, tdSwim, 1);
-    
-    //ABS
-    BodyPart bodyPart = ABS;
-    Exercise e(-1, bodyPart, "Plank");
-    Training *abs1 = new Abs(d1, td, 0, 60, 0 , e);
-    Logger::getInstance()->log(Logger::INFO, abs1->toString());
-
-    
-
     DbManager* dbManager = DbManager::getInstance();
-    cout << dbManager->toString() << endl;
-
     dbManager->connect();
     dbManager->init();
 
@@ -91,24 +68,35 @@ int main(){
     dbManager->exec(Abs::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Swim::getSqliteStrTocreateTable(), 0);
     
+    
+    //insert Shoe
+    Shoe s(0, "asics", "prelude", 132.0);
+    dbManager->exec(s.getSqliteStrToInsert(), 0);
+    int idShoe = dbManager->getLastID();
+    
     //insert Run
+    Training *run = new Run(d1, td, s, 21.2);
     dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
     run->setTrainingId(dbManager->getLastID());
-    dbManager->exec(s.getSqliteStrToInsert(), 0);
-    ((Run*)run)->setShoeId(dbManager->getLastID()); //cuz the id wasn't set at initialization time
+    ((Run*)run)->setShoeId(idShoe);
     dbManager->exec(run->getSqliteStrToInsert(), 0);
     
     //insert Exercise
+    BodyPart bodyPart = ABS;
+    Exercise e(-1, bodyPart, "Plank");
     dbManager->exec(e.getSqliteStrToInsert(), 0);
     unsigned idExercise = dbManager->getLastID();
     
     //insert Abs
+    Training *abs1 = new Abs(d1, td, 0, 60, 0 , e);
     ((Abs*)abs1)->getExercise().setId(idExercise);
     dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
     abs1->setTrainingId(dbManager->getLastID());
     dbManager->exec(abs1->getSqliteStrToInsert(), 0);
     
     //insert SWIM
+    TrainingDuration tdSwim(31);
+    Training *swim1 = new Swim(d1, tdSwim, 0.750);
     dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
     swim1->setTrainingId(dbManager->getLastID());
     dbManager->exec(swim1->getSqliteStrToInsert(), 0);

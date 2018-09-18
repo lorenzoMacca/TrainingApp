@@ -1,11 +1,11 @@
 #include "Swim.h"
 
-Swim::Swim(Date* date, TrainingDuration du, int km):Training(date, du){
+Swim::Swim(Date* date, TrainingDuration du, float km):Training(date, du){
     this->m_km=km;
     this->m_id=-1;
 }
 
-Swim::Swim(Date* date, TrainingDuration du, int km, int id):Training(date, du){
+Swim::Swim(Date* date, TrainingDuration du, float km, int id):Training(date, du){
     this->m_km=km;
     this->m_id=id;
 }
@@ -30,7 +30,7 @@ string Swim::getSqliteStrTocreateTable(){
 	sql << "CREATE TABLE SWIM("
 		<< "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
         << "ID_TRAINING INTEGER NOT NULL, "
-		<< "KM INTEGER NOT NULL, "
+		<< "KM REAL NOT NULL, "
         << "FOREIGN KEY(ID_TRAINING) REFERENCES TRAINING(ID)"
 		<< ");";
 	return sql.str();
@@ -57,7 +57,7 @@ int Swim::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
     List* list = static_cast<List*>(list_Not_casted);
     //run
     int swimId = -1;
-    int km = 0;
+    float km = 0;
     //training
     int trainingId = -1;
     Date *d = 0;
@@ -68,7 +68,7 @@ int Swim::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
         if(columnNme == "SWIM_ID"){
             swimId=stoi(argv[i]);
         }else if(columnNme == "KM"){
-            km=stoi(argv[i]);
+            km=stof(argv[i]);
         }else if(columnNme == "DATE"){
             d = new Date(argv[i]);
         }else if(columnNme == "COMMENT"){
