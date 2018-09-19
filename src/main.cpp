@@ -69,6 +69,7 @@ int main(){
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Abs::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Swim::getSqliteStrTocreateTable(), 0);
+    dbManager->exec(Break::getSqliteStrTocreateTable(), 0);
     
     //start session
     Session session;
@@ -86,8 +87,11 @@ int main(){
     ((Run*)run)->setShoeId(idShoe);
     dbManager->exec(run->getSqliteStrToInsert(), 0);
     
+    //Insert break
     TrainingDuration tdBreak1(3.5);
     Break* break1 = new Break(tdBreak1);
+    dbManager->exec(break1->getSqliteStrToInsert(), 0);
+    //Do you need to save the last id?
     
     //insert Exercise
     BodyPart bodyPart = ABS;
@@ -116,12 +120,14 @@ int main(){
     List* listRun = new List;
     List* listAbs = new List;
     List* listSwim = new List;
+    List* listBreaks = new List;
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
     dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, Run::callbackAfterSelect);
     dbManager->exec(Abs::getSqliteStrToGetAllRecords(), listAbs, Abs::callbackAfterSelect);
     dbManager->exec(Swim::getSqliteStrToGetAllRecords(), listSwim, Swim::callbackAfterSelect);
+    dbManager->exec(Break::getSqliteStrToGetAllRecords(), listBreaks, Break::callbackAfterSelect);
     
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
