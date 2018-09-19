@@ -14,6 +14,7 @@ private:
 
 public:
     Session();
+    ~Session();
     
     bool addActivity(Object*);
     

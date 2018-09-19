@@ -4,6 +4,10 @@ Session::Session(){
     this->m_activities = new List;
 }
 
+Session::~Session(){
+    delete this->m_activities;
+}
+
 bool Session::addActivity(Object* o){
     if(dynamic_cast<Training*>(o)){
         this->m_activities->pushBack(o);

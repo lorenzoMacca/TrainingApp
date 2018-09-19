@@ -15,13 +15,16 @@ private:
     string  m_dbName;
     sqlite3* m_db;
     static DbManager* m_instance;
+    
     DbManager();
+    ~DbManager();
     
     bool checkForeignKeysEnabled();
     void enableForeignkeys();
 
 public:
     static DbManager* getInstance();
+    static void resetInstance();
     bool connect();
     bool disconnect();
     bool init();

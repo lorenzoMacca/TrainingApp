@@ -131,7 +131,7 @@ int main(){
     
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
-    	string tmp = i->getCurrentValue()->toString();
+    	string tmp = i->getCurrentalue()->toString();
     	cout << tmp << endl;
     	(*i)++;
     }*/
@@ -148,11 +148,9 @@ int main(){
      */
     session.addActivity(listBreaks);
     
-    
-    
 
-    dbManager->disconnect();
-
+    //dbManager->disconnect();
+    DbManager::resetInstance();
 
     delete listTraining;
     delete listShoes;

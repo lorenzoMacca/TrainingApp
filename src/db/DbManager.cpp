@@ -5,6 +5,14 @@ DbManager::DbManager(){
     this->m_db = NULL;
 }
 
+DbManager::~DbManager(){
+    //The sqlite3_close() and sqlite3_close_v2() routines are destructors for the sqlite3 object
+    //the pointer m_db cannot be deleted using "delete"!
+    if(this->m_db){
+        this->disconnect();
+    }
+}
+
 string DbManager::toString() const{
     string res = "[DbManager";
     res += "]";
@@ -43,6 +51,10 @@ DbManager* DbManager::getInstance(){
         m_instance = new DbManager();
     }
     return m_instance;
+}
+
+void DbManager::resetInstance(){
+    delete m_instance;
 }
 
 bool DbManager::checkForeignKeysEnabled(){
