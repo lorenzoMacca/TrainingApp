@@ -137,6 +137,19 @@ int main(){
     }*/
     
     
+    session.addActivity(run);
+    session.addActivity(break1);
+    session.addActivity(abs1);
+    session.addActivity(swim1);
+    
+    /*
+     * the following object is not a TRaining or a Break
+     * this means that it won't be inserted in the session.
+     */
+    session.addActivity(listBreaks);
+    
+    
+    
 
     dbManager->disconnect();
 

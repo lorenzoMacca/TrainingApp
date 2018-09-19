@@ -4,6 +4,8 @@
 #include <Object.h>
 #include <DbObject.h>
 #include <List.h>
+#include <Training.h>
+#include <Break.h>
 
 class Session: public Object, DbObject{
 
@@ -12,6 +14,9 @@ private:
 
 public:
     Session();
+    
+    bool addActivity(Object*);
+    
     
     //from Object
     virtual string toString() const;
