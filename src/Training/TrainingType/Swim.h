@@ -14,6 +14,7 @@ class Swim : public Training{
 	public:
 		Swim(Date*, TrainingDuration, float km);
         Swim(Date*, TrainingDuration, float km, int m_id);
+        ~Swim();
 
 		//from Training:
 		virtual string toString() const;

@@ -20,6 +20,25 @@ using namespace std;
 
 int main(){
     
+    {
+        cout << "Checking the distructor" << endl;
+        TrainingDuration td(1);
+        Training* t = new Training(new Date(Date::getCurrentTime()), td);
+        Shoe s(0, "asics", "prelude", 132.0);
+        Training* t1 = new Run(new Date(Date::getCurrentTime()), td, s, 42.0);
+        delete t;
+        delete t1;
+        
+        /*the following code can couse bad access in the mamory during tha distruction call
+        Date* d = new Date(Date::getCurrentTime());
+        Training* t2 = new Training(d, td);
+        Training* t3 = new Run(d, td, s, 42.0);
+        delete t2;
+        delete t3;
+         */
+    }
+    
+    
     Logger::getInstance()->enable();
     Logger::getInstance()->log(Logger::INFO, "I'm the best logger ever");
 
@@ -81,7 +100,7 @@ int main(){
     int idShoe = dbManager->getLastID();
     
     //insert Run
-    Training *run = new Run(d1, td, s, 21.2);
+    Training *run = new Run(new Date(Date::getCurrentTime()), td, s, 21.2);
     dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
     run->setTrainingId(dbManager->getLastID());
     ((Run*)run)->setShoeId(idShoe);
@@ -100,7 +119,7 @@ int main(){
     unsigned idExercise = dbManager->getLastID();
     
     //insert Abs
-    Training *abs1 = new Abs(d1, td, 0, 60, 0 , e);
+    Training *abs1 = new Abs(new Date(Date::getCurrentTime()), td, 0, 60, 0 , e);
     ((Abs*)abs1)->getExercise().setId(idExercise);
     dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
     abs1->setTrainingId(dbManager->getLastID());
@@ -108,7 +127,7 @@ int main(){
     
     //insert SWIM
     TrainingDuration tdSwim(31.4);
-    Training *swim1 = new Swim(d1, tdSwim, 0.750);
+    Training *swim1 = new Swim(new Date(Date::getCurrentTime()), tdSwim, 0.750);
     dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
     swim1->setTrainingId(dbManager->getLastID());
     dbManager->exec(swim1->getSqliteStrToInsert(), 0);
@@ -154,5 +173,10 @@ int main(){
 
     delete listTraining;
     delete listShoes;
+    delete listExercise;
+    delete listRun;
+    delete listAbs;
+    delete listSwim;
+    delete listBreaks;
     return 0;
 }

@@ -1,5 +1,8 @@
 #include "Date.h"
 
+Date::~Date(){
+    
+}
 
 string Date::toString() const{
     tm *ltm = localtime(&this->m_timeT);
@@ -13,6 +16,7 @@ string Date::toString() const{
         << ltm->tm_min  << this->m_hourSeparator
         << ltm->tm_sec
         << "]";
+    //delete ltm;
     return res.str();
 }
 

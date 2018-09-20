@@ -11,6 +11,13 @@ Training::Training(Date* d, TrainingDuration t){
     this->m_trainingDuration = t;
 }
 
+Training::~Training(){
+    Logger::getInstance()->log(Logger::INFO, "Training: destructor called");
+    if(this->m_date){
+        delete this->m_date;
+    }
+}
+
 void Training::setTrainingId(int idTraining){
     this->m_id_training = idTraining;
 }

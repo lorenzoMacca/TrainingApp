@@ -12,6 +12,10 @@ Run::Run(Date* date, TrainingDuration du, Shoe s, float km, int id):Training(dat
     this->m_id=id;
 }
 
+Run::~Run(){
+    //Logger::getInstance()->log(Logger::INFO, "Run: destructor called");
+}
+
 void Run::setShoeId(int i){
     this->m_shoe.setId(i);
 }

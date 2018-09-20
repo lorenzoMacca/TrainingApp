@@ -10,6 +10,10 @@ Swim::Swim(Date* date, TrainingDuration du, float km, int id):Training(date, du)
     this->m_id=id;
 }
 
+Swim::~Swim(){
+    
+}
+
 string Swim::toString() const{
 	stringstream str;
     str << "[Swim:"

@@ -8,6 +8,10 @@ Abs::Abs(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, 
     this->m_exercise = e;
 }
 
+Abs::~Abs(){
+    //Logger::getInstance()->log(Logger::INFO, "Abs: destructor called");
+}
+
 Exercise& Abs::getExercise(){
     return this->m_exercise;
 }

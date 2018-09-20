@@ -21,6 +21,7 @@ public:
     Date();
     Date(string); //from tm serialized
     Date(time_t);
+    ~Date();
     char getDateSeparator()const;
     char getHourSeparator()const;
     void setDateSeparator(char);

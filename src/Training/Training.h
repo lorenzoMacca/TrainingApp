@@ -20,6 +20,7 @@ protected:
 public:
     Training(int id=-1, Date* d = 0, TrainingDuration t=0);
     Training(Date* , TrainingDuration);
+    virtual ~Training();
     Date* getDate()const;
     void setDate(Date*);
     TrainingDuration getTrainingDuration()const;

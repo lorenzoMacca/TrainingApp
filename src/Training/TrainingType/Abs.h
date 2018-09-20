@@ -16,7 +16,8 @@ class Abs : public Training{
     
     public:
         Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
-        
+        ~Abs();
+    
         //from Training:
         virtual string toString() const;
         virtual int compareTo(Object*) const;

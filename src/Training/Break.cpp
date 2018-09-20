@@ -10,6 +10,8 @@ Break::Break(int idDb, TrainingDuration td){
     this->m_id = idDb;
 }
 
+Break::~Break(){}
+
 void Break::setId(int idDb){
     this->m_id = idDb;
 }

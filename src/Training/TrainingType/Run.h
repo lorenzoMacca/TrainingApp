@@ -16,6 +16,7 @@ class Run : public Training{
 	public:
 		Run(Date*, TrainingDuration, Shoe s, float km);
         Run(Date*, TrainingDuration, Shoe s, float km, int m_id);
+        ~Run();
         void setShoeId(int i);
 
 		//from Training:

@@ -15,6 +15,7 @@ private:
 public:
     Break(TrainingDuration m_td);
     Break(int idDb, TrainingDuration m_td);
+    ~Break();
     void setId(int idDb);
     
     //from Object
