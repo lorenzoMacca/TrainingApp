@@ -14,6 +14,10 @@ class TypeFoo: public Object{
 			this->name=name;
 			this->value=value;
 		}
+    
+        ~TypeFoo(){
+            cout << "Destructor in Foo called" <<endl;
+        }
 
 		virtual string toString()const{
 			string s = "Hi! I am a dummy " + this->name + " class";

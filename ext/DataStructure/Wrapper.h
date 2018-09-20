@@ -14,10 +14,13 @@ class Wrapper : public Object{
     public:
         Wrapper();
         Wrapper(T const&);
+        virtual ~Wrapper(){};
         virtual string toString()const;
         virtual int compareTo(Object*) const;
         Wrapper& operator=(T const&);
 };
+
+
 
 template <class T>
 Wrapper<T>::Wrapper():

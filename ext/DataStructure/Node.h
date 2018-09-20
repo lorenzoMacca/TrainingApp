@@ -13,7 +13,7 @@ class Node : public Object{
 	public:
 		Node();
 		Node(Object*);
-		~Node();
+		virtual ~Node();
 		Node(const Node& n);
 		Object* getValue()const;
 		void setValue(Object*);

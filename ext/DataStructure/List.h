@@ -14,7 +14,7 @@ class List : public Object{
 	public:
 		List();
 		List(Object*);
-		~List();
+		virtual ~List();
 		Object* getFirstValue()const;
 		Object* getValueLastElement()const;
 		bool pushBack(Object* t);

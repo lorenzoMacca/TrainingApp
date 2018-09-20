@@ -10,6 +10,7 @@ class Object{
 	public:
 		virtual string toString() const = 0 ;
 		virtual int compareTo(Object*) const = 0 ;
+        virtual ~Object(){};
 };
 
 #endif
