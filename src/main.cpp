@@ -23,12 +23,13 @@ int main(){
     {
         cout << "Checking the distructor" << endl;
         TrainingDuration td(1);
-        Training* t = new Training(new Date(Date::getCurrentTime()), td);
+        //Training* t = new Training(new Date(Date::getCurrentTime()), td);
         Shoe s(0, "asics", "prelude", 132.0);
         Training* t1 = new Run(new Date(Date::getCurrentTime()), td, s, 42.0);
-        delete t;
+        Run* t2 = new Run(new Date(Date::getCurrentTime()), td, s, 42.0);
+        //delete t;
         delete t1;
-        
+        delete t2;
         /*the following code can couse bad access in the mamory during tha distruction call
         Date* d = new Date(Date::getCurrentTime());
         Training* t2 = new Training(d, td);
@@ -36,6 +37,8 @@ int main(){
         delete t2;
         delete t3;
          */
+        cout << "[END] - Checking the distructor" << endl;
+        
     }
     
     
@@ -101,15 +104,15 @@ int main(){
     
     //insert Run
     Training *run = new Run(new Date(Date::getCurrentTime()), td, s, 21.2);
-    dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
-    run->setTrainingId(dbManager->getLastID());
+    //dbManager->exec(run->Training::getSqliteStrToInsert(), 0);
+    //run->setTrainingId(dbManager->getLastID());
     ((Run*)run)->setShoeId(idShoe);
-    dbManager->exec(run->getSqliteStrToInsert(), 0);
+    //dbManager->exec(run->getSqliteStrToInsert(), 0);
     
     //Insert break
     TrainingDuration tdBreak1(3.5);
     Break* break1 = new Break(tdBreak1);
-    dbManager->exec(break1->getSqliteStrToInsert(), 0);
+    //dbManager->exec(break1->getSqliteStrToInsert(), 0);
     //Do you need to save the last id?
     
     //insert Exercise
@@ -121,16 +124,25 @@ int main(){
     //insert Abs
     Training *abs1 = new Abs(new Date(Date::getCurrentTime()), td, 0, 60, 0 , e);
     ((Abs*)abs1)->getExercise().setId(idExercise);
-    dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
-    abs1->setTrainingId(dbManager->getLastID());
-    dbManager->exec(abs1->getSqliteStrToInsert(), 0);
+    //dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
+    //abs1->setTrainingId(dbManager->getLastID());
+    //dbManager->exec(abs1->getSqliteStrToInsert(), 0);
     
     //insert SWIM
     TrainingDuration tdSwim(31.4);
     Training *swim1 = new Swim(new Date(Date::getCurrentTime()), tdSwim, 0.750);
-    dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
-    swim1->setTrainingId(dbManager->getLastID());
-    dbManager->exec(swim1->getSqliteStrToInsert(), 0);
+    //dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
+    //swim1->setTrainingId(dbManager->getLastID());
+    //dbManager->exec(swim1->getSqliteStrToInsert(), 0);
+    
+    session.addActivity(run);
+    session.addActivity(break1);
+    session.addActivity(abs1);
+    session.addActivity(swim1);
+    
+    session.saveAll();
+    
+    //cout << session.toString() << endl;
     
 
     List* listTraining = new List;
@@ -156,16 +168,7 @@ int main(){
     }*/
     
     
-    session.addActivity(run);
-    session.addActivity(break1);
-    session.addActivity(abs1);
-    session.addActivity(swim1);
     
-    /*
-     * the following object is not a TRaining or a Break
-     * this means that it won't be inserted in the session.
-     */
-    session.addActivity(listBreaks);
     
 
     //dbManager->disconnect();

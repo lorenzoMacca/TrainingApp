@@ -12,7 +12,7 @@ Training::Training(Date* d, TrainingDuration t){
 }
 
 Training::~Training(){
-    Logger::getInstance()->log(Logger::INFO, "Training: destructor called");
+    //Logger::getInstance()->log(Logger::INFO, "Training: destructor called");
     if(this->m_date){
         delete this->m_date;
     }

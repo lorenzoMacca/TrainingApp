@@ -6,18 +6,21 @@
 #include <List.h>
 #include <Training.h>
 #include <Break.h>
+#include <DbManager.h>
 
 class Session: public Object, DbObject{
 
 private:
     List* m_activities;
+    Date m_date;
 
 public:
     Session();
+    Session(Date d);
     ~Session();
     
     bool addActivity(Object*);
-    
+    void saveAll();
     
     //from Object
     virtual string toString() const;
