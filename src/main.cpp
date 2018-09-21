@@ -85,6 +85,7 @@ int main(){
     dbManager->init();
 
     //create table
+    dbManager->exec(Session::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Training::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);

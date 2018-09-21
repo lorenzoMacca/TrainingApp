@@ -50,15 +50,38 @@ void Session::saveAll(){
 
 string Session::toString() const{
     stringstream res;
-    res <<  "[Session: ";
-    res << this->m_date.toString() << " - ";
-    res << this->m_activities->toString() << " - ";
-    res << "]";
+    res <<  "[Session: "
+        << this->m_date.toString() << " - "
+        << this->m_activities->toString() << " - "
+        << "]";
     return res.str();
 }
 
 int Session::compareTo(Object*) const{return -2;}
 
-string Session::getSqliteStrTocreateTable(){return "";}
+string Session::getSqliteStrTocreateTable(){
+    stringstream sql;
+    sql << "CREATE TABLE SESSION("
+    << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+    << "DATE TEXT NOT NULL);";
+    
+    sql << "CREATE TABLE SESSION_TRAINING("
+    << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+    << "ID_TRAINING INTEGER NOT NULL, "
+    << "ID_SESSION INTEGER NOT NULL, "
+    << "FOREIGN KEY(ID_TRAINING) REFERENCES TRAINING(ID), "
+    << "FOREIGN KEY(ID_SESSION) REFERENCES SESSION(ID)"
+    <<");";
+    
+    sql << "CREATE TABLE SESSION_BREAK("
+    << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+    << "ID_BREAK INTEGER NOT NULL, "
+    << "ID_SESSION INTEGER NOT NULL, "
+    << "FOREIGN KEY(ID_BREAK) REFERENCES BREAK(ID), "
+    << "FOREIGN KEY(ID_SESSION) REFERENCES SESSION(ID)"
+    <<");";
+    return sql.str();
+}
+
 string Session::getSqliteStrToInsert()const{return "";}
 string Session::getSqliteStrToGetAllRecords(){return "";}
