@@ -2,10 +2,12 @@
 
 Session::Session(){
     this->m_activities = new List;
+    this->m_id=-1;
 }
 
 Session::Session(Date d){
     this->m_date = d;
+    this->m_id=-1;
 }
 
 Session::~Session(){
@@ -26,26 +28,33 @@ bool Session::addActivity(Object* o){
 }
 
 void Session::saveAll(){
+    DbManager *dbManager = DbManager::getInstance();
     //Step1: save the session
+    dbManager->exec(this->getSqliteStrToInsert(), 0);
+    this->m_id = dbManager->getLastID();
     
     //Step2: save all activities in the list
+    //Step3: save the relation between the activities and the current list
     IteratorList* i = static_cast<IteratorList*>(this->m_activities->getIterator());
-    DbManager *dbManager = DbManager::getInstance();
     while(i->hasNext()){
         Training* t = dynamic_cast<Training*>(i->getCurrentValue());
         Break* b = dynamic_cast<Break*>(i->getCurrentValue());
+        int id_activity = -1;
         if(t){
             dbManager->exec(t->Training::getSqliteStrToInsert(), 0);
-            t->setTrainingId(dbManager->getLastID());
+            id_activity = dbManager->getLastID();
+            t->setTrainingId(id_activity);
             dbManager->exec(t->getSqliteStrToInsert(), 0);
+            dbManager->exec(this->getSqliteStrToInsertSessionTraining(this->m_id, id_activity), 0);
         }if(b) {
             dbManager->exec(b->getSqliteStrToInsert(), 0);
+            id_activity = dbManager->getLastID();
+            dbManager->exec(this->getSqliteStrToInsertSessionBreak(this->m_id, id_activity), 0);
         }
+        
         ++(*i);
     }
     delete i;
-    
-    //Step3: save the relation between the activities and the current list
 }
 
 string Session::toString() const{
@@ -83,5 +92,32 @@ string Session::getSqliteStrTocreateTable(){
     return sql.str();
 }
 
-string Session::getSqliteStrToInsert()const{return "";}
+string Session::getSqliteStrToInsert()const{
+    stringstream sql;
+    sql << "INSERT INTO SESSION (DATE) "
+    << "VALUES ('" << this->m_date.getTmSerialized()
+    << "');";
+    return sql.str();
+}
+
+string Session::getSqliteStrToInsertSessionTraining(int id_session, int id_training)const{
+    stringstream sql;
+    sql << "INSERT INTO SESSION_TRAINING (ID_TRAINING, ID_SESSION) "
+    << "VALUES ("
+    << id_training << ", "
+    << id_session
+    << ");";
+    return sql.str();
+}
+
+string Session::getSqliteStrToInsertSessionBreak(int id_session, int id_break)const{
+    stringstream sql;
+    sql << "INSERT INTO SESSION_BREAK (ID_BREAK, ID_SESSION) "
+    << "VALUES ("
+    << id_break << ", "
+    << id_session
+    << ");";
+    return sql.str();
+}
+
 string Session::getSqliteStrToGetAllRecords(){return "";}

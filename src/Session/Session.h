@@ -13,6 +13,7 @@ class Session: public Object, DbObject{
 private:
     List* m_activities;
     Date m_date;
+    int m_id;
 
 public:
     Session();
@@ -21,6 +22,8 @@ public:
     
     bool addActivity(Object*);
     void saveAll();
+    string getSqliteStrToInsertSessionTraining(int id_session, int id_training)const;
+    string getSqliteStrToInsertSessionBreak(int id_session, int id_break)const;
     
     //from Object
     virtual string toString() const;
