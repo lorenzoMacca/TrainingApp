@@ -120,4 +120,7 @@ string Session::getSqliteStrToInsertSessionBreak(int id_session, int id_break)co
     return sql.str();
 }
 
-string Session::getSqliteStrToGetAllRecords(){return "";}
+string Session::getSqliteStrToGetAllRecords(){
+    return "select * form SESSION;";
+    
+}
