@@ -7,6 +7,7 @@
 class Iterator{
 
 	public:
+        virtual ~Iterator(){};
 		virtual Object* getCurrentValue()const = 0;
 		virtual bool hasNext()const = 0;
 		virtual Iterator* operator++() = 0;

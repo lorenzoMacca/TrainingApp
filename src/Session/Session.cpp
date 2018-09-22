@@ -35,7 +35,7 @@ void Session::saveAll(){
     
     //Step2: save all activities in the list
     //Step3: save the relation between the activities and the current list
-    IteratorList* i = static_cast<IteratorList*>(this->m_activities->getIterator());
+    Iterator* i = this->m_activities->getIterator();
     while(i->hasNext()){
         Training* t = dynamic_cast<Training*>(i->getCurrentValue());
         Break* b = dynamic_cast<Break*>(i->getCurrentValue());
