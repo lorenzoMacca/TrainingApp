@@ -6,8 +6,15 @@ Session::Session(){
 }
 
 Session::Session(Date d){
+    this->m_activities = new List;
     this->m_date = d;
     this->m_id=-1;
+}
+
+Session::Session(int dbId, Date d){
+    this->m_activities = new List;
+    this->m_date = d;
+    this->m_id=dbId;
 }
 
 Session::~Session(){
@@ -60,6 +67,7 @@ void Session::saveAll(){
 string Session::toString() const{
     stringstream res;
     res <<  "[Session: "
+        << "ID: " << this->m_id << " - "
         << this->m_date.toString() << " - "
         << this->m_activities->toString() << " - "
         << "]";
@@ -121,6 +129,30 @@ string Session::getSqliteStrToInsertSessionBreak(int id_session, int id_break)co
 }
 
 string Session::getSqliteStrToGetAllRecords(){
-    return "select * form SESSION;";
+    return "select * from SESSION;";
+}
+
+int Session::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
+    // TRAINING_ID ID DATE DURATION COMMENT
+    if(list_Not_casted == 0)
+        return 0;
+    List* list = static_cast<List*>(list_Not_casted);
     
+    //training
+    int sessionId = -1;
+    Date d;
+    
+    for(int i = 0; i<argc; i++) {
+        string columnNme(azColName[i]);
+        if(columnNme == "ID"){
+            sessionId=stoi(argv[i]);
+        }else if(columnNme == "DATE"){
+            d.init(argv[i]);
+        }
+    }
+    Session* session = new Session(sessionId, d);
+    Logger::getInstance()->log(Logger::INFO, "DbManager: Session instance created: " + session->toString() );
+    list->pushBack(session);
+    
+    return 0;
 }

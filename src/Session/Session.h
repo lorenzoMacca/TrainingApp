@@ -18,6 +18,7 @@ private:
 public:
     Session();
     Session(Date d);
+    Session(int dbId, Date d);
     ~Session();
     
     bool addActivity(Object*);
@@ -33,6 +34,9 @@ public:
     static string getSqliteStrTocreateTable();
     virtual string getSqliteStrToInsert()const;
     static string getSqliteStrToGetAllRecords();
+    
+    //callback funcs
+    static int callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName);
     
 };
 

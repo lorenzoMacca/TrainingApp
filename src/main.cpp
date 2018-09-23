@@ -154,6 +154,7 @@ int main(){
     List* listAbs = new List;
     List* listSwim = new List;
     List* listBreaks = new List;
+    List* listSession = new List;
     dbManager->exec(Training::getSqliteStrToGetAllRecords(), listTraining, Training::callbackAfterSelect);
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
@@ -161,6 +162,7 @@ int main(){
     dbManager->exec(Abs::getSqliteStrToGetAllRecords(), listAbs, Abs::callbackAfterSelect);
     dbManager->exec(Swim::getSqliteStrToGetAllRecords(), listSwim, Swim::callbackAfterSelect);
     dbManager->exec(Break::getSqliteStrToGetAllRecords(), listBreaks, Break::callbackAfterSelect);
+    dbManager->exec(Session::getSqliteStrToGetAllRecords(), listSession, Session::callbackAfterSelect);
     
     /*Iterator* i = list->getIterator();
     while(i->hasNext()){
@@ -173,7 +175,7 @@ int main(){
     conditions.pushBack(new WhereCondition("A", "B", "="));
     conditions.pushBack(new WhereCondition("B", "C", "="));
     conditions.pushBack(new WhereCondition("C", "D", "="));
-    cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions, "and") << endl;
+    //cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions, "and") << endl;
     
 
     //dbManager->disconnect();
@@ -186,5 +188,6 @@ int main(){
     delete listAbs;
     delete listSwim;
     delete listBreaks;
+    delete listSession;
     return 0;
 }

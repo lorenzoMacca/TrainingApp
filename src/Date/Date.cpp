@@ -20,6 +20,17 @@ string Date::toString() const{
     return res.str();
 }
 
+void Date::init(string str){
+    this->m_dateSeparator = '-';
+    this->m_hourSeparator = ':';
+    tm * timeptr = new tm;
+    if( this->deserializeToTm(str,timeptr) ){
+        this->m_timeT = mktime(timeptr);
+    }else{
+        this->m_timeT = time(0);
+    }
+}
+
 int Date::compareTo(Object* o) const{
     double diff = difftime(this->m_timeT, ((Date*)o)->m_timeT);
     if(diff > 0){
@@ -49,14 +60,7 @@ Date::Date(time_t t){
 }
 
 Date::Date(string str){
-	this->m_dateSeparator = '-';
-	this->m_hourSeparator = ':';
-	tm * timeptr = new tm;
-	if( this->deserializeToTm(str,timeptr) ){
-		this->m_timeT = mktime(timeptr);
-	}else{
-		this->m_timeT = time(0);
-	}
+    this->init(str);
 }
 
 char Date::getDateSeparator()const{

@@ -29,6 +29,7 @@ public:
     static time_t getCurrentTime();
     string getTmSerialized()const;
     bool deserializeToTm(string str, struct tm * timeptr)const;
+    void init(string);
     
     
     
