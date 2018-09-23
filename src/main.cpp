@@ -15,6 +15,7 @@
 #include <Swim.h>
 #include <Break.h>
 #include <Session.h>
+#include <WhereCondition.h>
 
 using namespace std;
 
@@ -169,7 +170,10 @@ int main(){
     }*/
     
     List conditions;
-    cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions) << endl;
+    conditions.pushBack(new WhereCondition("A", "B", "="));
+    conditions.pushBack(new WhereCondition("B", "C", "="));
+    conditions.pushBack(new WhereCondition("C", "D", "="));
+    cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions, "and") << endl;
     
 
     //dbManager->disconnect();

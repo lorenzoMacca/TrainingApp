@@ -98,10 +98,20 @@ string Training::getSqliteStrToGetAllRecords(){
 	return "select * from TRAINING";
 }
 
-string Training::getSqliteStrToGetRecords(string strAllRecord, const List&){
+string Training::getSqliteStrToGetRecords(string strAllRecord, const List& l, string add){
     stringstream str;
-    str << strAllRecord << " where ";
+    str << strAllRecord << " " << add << " ";
+    Iterator* i = l.getIterator();
+    while(i->hasNext()){
+        WhereCondition* wc = static_cast<WhereCondition*>(i->getCurrentValue());
+        str << " " << wc->getLeft() << " " << wc->getOperator() << " " << wc->getRight();
+        ++(*i);
+        if(i->hasNext()){
+            str << " and ";
+        }
+    }
     
+    delete i;
     return str.str();
 }
 

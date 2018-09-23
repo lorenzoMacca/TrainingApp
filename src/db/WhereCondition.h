@@ -4,7 +4,7 @@
 #include "Object.h"
 #include <sstream>
 
-class WhereCondition{
+class WhereCondition: public Object{
 
 private:
     string m_left, m_right, m_operator;

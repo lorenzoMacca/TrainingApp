@@ -7,6 +7,7 @@
 #include <TrainingDuration.h>
 #include <List.h>
 #include <Logger.h>
+#include <WhereCondition.h>
 
 
 class Training : public Object, DbObject{
@@ -43,7 +44,7 @@ public:
     //callback function
     static int callbackAfterSelect(void *NotUsed, int argc, char **argv, char **azColName);
     
-    static string getSqliteStrToGetRecords(string strAllRecord, const List& );
+    static string getSqliteStrToGetRecords(string strAllRecord, const List&, string add );
 
 
 
