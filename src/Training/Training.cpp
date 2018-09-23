@@ -98,6 +98,13 @@ string Training::getSqliteStrToGetAllRecords(){
 	return "select * from TRAINING";
 }
 
+string Training::getSqliteStrToGetRecords(string strAllRecord, const List&){
+    stringstream str;
+    str << strAllRecord << " where ";
+    
+    return str.str();
+}
+
 int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
 	if(list_Not_casted == 0) return 0;
 	List* list = static_cast<List*>(list_Not_casted);

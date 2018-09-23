@@ -50,7 +50,7 @@ string Swim::getSqliteStrToInsert()const{
 	return sql.str();
 }
 
-string Swim ::getSqliteStrToGetAllRecords(){
+string Swim::getSqliteStrToGetAllRecords(){
     return "select SWIM.ID AS SWIM_ID, SWIM.*, TRAINING.ID AS TRAINING_ID, TRAINING.* from SWIM, TRAINING where SWIM.ID_TRAINING=TRAINING.ID";
 }
 

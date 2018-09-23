@@ -168,8 +168,8 @@ int main(){
     	(*i)++;
     }*/
     
-    
-    
+    List conditions;
+    cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions) << endl;
     
 
     //dbManager->disconnect();

@@ -42,6 +42,8 @@ public:
     //from sqlite3 callback func
     //callback function
     static int callbackAfterSelect(void *NotUsed, int argc, char **argv, char **azColName);
+    
+    static string getSqliteStrToGetRecords(string strAllRecord, const List& );
 
 
 
