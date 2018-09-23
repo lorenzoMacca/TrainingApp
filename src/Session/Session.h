@@ -23,6 +23,7 @@ public:
     
     bool addActivity(Object*);
     void saveAll();
+    bool loadActivities();
     string getSqliteStrToInsertSessionTraining(int id_session, int id_training)const;
     string getSqliteStrToInsertSessionBreak(int id_session, int id_break)const;
     

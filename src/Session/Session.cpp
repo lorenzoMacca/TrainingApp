@@ -34,6 +34,16 @@ bool Session::addActivity(Object* o){
     }
 }
 
+bool Session::loadActivities(){
+    if(this->m_id < 1){
+        Logger::getInstance()->log(Logger::INFO, "Session: Current activity has an id not valid: " + this->m_id);
+        return false;
+    }
+    
+    
+    return true;
+}
+
 void Session::saveAll(){
     DbManager *dbManager = DbManager::getInstance();
     //Step1: save the session
