@@ -36,7 +36,7 @@ bool Session::addActivity(Object* o){
 
 bool Session::loadActivities(){
     if(this->m_id < 1){
-        Logger::getInstance()->log(Logger::INFO, "Session: Current activity has an id not valid: " + this->m_id);
+        Logger::getInstance()->log(Logger::INFO, "Session: Current activity has an id not valid: " + std::to_string(this->m_id));
         return false;
     }
     
@@ -53,6 +53,7 @@ void Session::saveAll(){
     //Step2: save all activities in the list
     //Step3: save the relation between the activities and the current list
     Iterator* i = this->m_activities->getIterator();
+    int currentPosition = 0;
     while(i->hasNext()){
         Training* t = dynamic_cast<Training*>(i->getCurrentValue());
         Break* b = dynamic_cast<Break*>(i->getCurrentValue());
@@ -62,14 +63,15 @@ void Session::saveAll(){
             id_activity = dbManager->getLastID();
             t->setTrainingId(id_activity);
             dbManager->exec(t->getSqliteStrToInsert(), 0);
-            dbManager->exec(this->getSqliteStrToInsertSessionTraining(this->m_id, id_activity), 0);
+            dbManager->exec(this->getSqliteStrToInsertSessionTraining(this->m_id, id_activity, currentPosition), 0);
         }if(b) {
             dbManager->exec(b->getSqliteStrToInsert(), 0);
             id_activity = dbManager->getLastID();
-            dbManager->exec(this->getSqliteStrToInsertSessionBreak(this->m_id, id_activity), 0);
+            dbManager->exec(this->getSqliteStrToInsertSessionBreak(this->m_id, id_activity, currentPosition), 0);
         }
         
         ++(*i);
+        ++currentPosition;
     }
     delete i;
 }
@@ -96,6 +98,7 @@ string Session::getSqliteStrTocreateTable(){
     << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
     << "ID_TRAINING INTEGER NOT NULL, "
     << "ID_SESSION INTEGER NOT NULL, "
+    << "POSITION INTEGER NOT NULL, "
     << "FOREIGN KEY(ID_TRAINING) REFERENCES TRAINING(ID), "
     << "FOREIGN KEY(ID_SESSION) REFERENCES SESSION(ID)"
     <<");";
@@ -104,6 +107,7 @@ string Session::getSqliteStrTocreateTable(){
     << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
     << "ID_BREAK INTEGER NOT NULL, "
     << "ID_SESSION INTEGER NOT NULL, "
+    << "POSITION INTEGER NOT NULL, "
     << "FOREIGN KEY(ID_BREAK) REFERENCES BREAK(ID), "
     << "FOREIGN KEY(ID_SESSION) REFERENCES SESSION(ID)"
     <<");";
@@ -118,22 +122,24 @@ string Session::getSqliteStrToInsert()const{
     return sql.str();
 }
 
-string Session::getSqliteStrToInsertSessionTraining(int id_session, int id_training)const{
+string Session::getSqliteStrToInsertSessionTraining(int id_session, int id_training, int position)const{
     stringstream sql;
-    sql << "INSERT INTO SESSION_TRAINING (ID_TRAINING, ID_SESSION) "
+    sql << "INSERT INTO SESSION_TRAINING (ID_TRAINING, ID_SESSION, POSITION) "
     << "VALUES ("
     << id_training << ", "
-    << id_session
+    << id_session << ", "
+    << position
     << ");";
     return sql.str();
 }
 
-string Session::getSqliteStrToInsertSessionBreak(int id_session, int id_break)const{
+string Session::getSqliteStrToInsertSessionBreak(int id_session, int id_break, int position)const{
     stringstream sql;
-    sql << "INSERT INTO SESSION_BREAK (ID_BREAK, ID_SESSION) "
+    sql << "INSERT INTO SESSION_BREAK (ID_BREAK, ID_SESSION, POSITION) "
     << "VALUES ("
     << id_break << ", "
-    << id_session
+    << id_session << ", "
+    << position
     << ");";
     return sql.str();
 }

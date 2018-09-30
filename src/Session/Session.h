@@ -7,6 +7,7 @@
 #include <Training.h>
 #include <Break.h>
 #include <DbManager.h>
+#include <string>
 
 class Session: public Object, DbObject{
 
@@ -24,8 +25,8 @@ public:
     bool addActivity(Object*);
     void saveAll();
     bool loadActivities();
-    string getSqliteStrToInsertSessionTraining(int id_session, int id_training)const;
-    string getSqliteStrToInsertSessionBreak(int id_session, int id_break)const;
+    string getSqliteStrToInsertSessionTraining(int id_session, int id_training, int position)const;
+    string getSqliteStrToInsertSessionBreak(int id_session, int id_break, int position)const;
     
     //from Object
     virtual string toString() const;

@@ -177,6 +177,9 @@ int main(){
     conditions.pushBack(new WhereCondition("C", "D", "="));
     //cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions, "and") << endl;
     
+    //load all the activities related to
+    session.loadActivities();
+    
 
     //dbManager->disconnect();
     DbManager::resetInstance();
