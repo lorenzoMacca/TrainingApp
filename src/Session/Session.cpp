@@ -39,6 +39,13 @@ bool Session::loadActivities(){
         Logger::getInstance()->log(Logger::INFO, "Session: Current activity has an id not valid: " + std::to_string(this->m_id));
         return false;
     }
+    DbManager* dbManager = DbManager::getInstance();
+    List cond1;
+    cond1.pushBack(new WhereCondition("SESSION.ID", std::to_string(this->m_id), "="));
+    cond1.pushBack(new WhereCondition("SESSION.ID", "SESSION_TRAINING.ID_SESSION", "="));
+    List* sessionTrainingsList = new List;
+    string queryGetsessionTrainings = "select SESSION_TRAINING.ID AS SESSION_TRAINING_ID, SESSION_TRAINING.* from SESSION, SESSION_TRAINING";
+    dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionTrainings, cond1, "WHERE"), sessionTrainingsList, Session::callbackAfterSelectSessionTraining);
     
     
     return true;
@@ -172,3 +179,42 @@ int Session::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, c
     
     return 0;
 }
+
+string SessionTraining::toString() const{
+    stringstream res;
+    res <<  "[SessionTraining: "
+    << "ID: " << this->_id << " - "
+    << "ID_TRAINING: " << this->_trainingId << " - "
+    << "ID_SESSION: " << this->_idSession << " - "
+    << "POSITION: " << this->_position
+    << "]";
+    return res.str();
+}
+
+int Session::callbackAfterSelectSessionTraining(void *list_Not_casted, int argc, char **argv, char **azColName) {
+    if(list_Not_casted == 0)
+        return 0;
+    List* list = static_cast<List*>(list_Not_casted);
+    
+    //sessionTrainig
+    SessionTraining* sessionTraining = new SessionTraining;
+    
+    for(int i = 0; i<argc; i++) {
+        string columnNme(azColName[i]);
+        if(columnNme == "SESSION_TRAINING_ID"){
+            sessionTraining->_id=stoi(argv[i]);
+        }else if(columnNme == "ID_TRAINING"){
+           sessionTraining->_trainingId=stoi(argv[i]);
+        }else if(columnNme == "ID_SESSION"){
+            sessionTraining->_idSession=stoi(argv[i]);
+        }else if(columnNme == "POSITION"){
+            sessionTraining->_position=stoi(argv[i]);
+        }
+    }
+    Logger::getInstance()->log(Logger::INFO, "DbManager: sessionTraining instance created: " + sessionTraining->toString() );
+    list->pushBack(sessionTraining);
+    
+    return 0;
+}
+
+

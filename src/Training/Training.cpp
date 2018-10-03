@@ -98,23 +98,6 @@ string Training::getSqliteStrToGetAllRecords(){
 	return "select * from TRAINING";
 }
 
-string Training::getSqliteStrToGetRecords(string strAllRecord, const List& l, string add){
-    stringstream str;
-    str << strAllRecord << " " << add << " ";
-    Iterator* i = l.getIterator();
-    while(i->hasNext()){
-        WhereCondition* wc = static_cast<WhereCondition*>(i->getCurrentValue());
-        str << " " << wc->getLeft() << " " << wc->getOperator() << " " << wc->getRight();
-        ++(*i);
-        if(i->hasNext()){
-            str << " and ";
-        }
-    }
-    
-    delete i;
-    return str.str();
-}
-
 int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
 	if(list_Not_casted == 0) return 0;
 	List* list = static_cast<List*>(list_Not_casted);

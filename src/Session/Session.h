@@ -8,6 +8,8 @@
 #include <Break.h>
 #include <DbManager.h>
 #include <string>
+#include <WhereCondition.h>
+#include <Utils.h>
 
 class Session: public Object, DbObject{
 
@@ -39,7 +41,30 @@ public:
     
     //callback funcs
     static int callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName);
+    static int callbackAfterSelectSessionTraining(void *list_Not_casted, int argc, char **argv, char **azColName);
     
+};
+
+class SessionTraining: public Object{
+public:
+    int _id;
+    int _trainingId;
+    int _idSession;
+    int _position;
+    
+    virtual string toString() const;
+    virtual int compareTo(Object*) const{return -2;}
+};
+
+class SessionBreak: public Object{
+public:
+    int _id;
+    int _breakId;
+    int _idSession;
+    int _position;
+    
+    virtual string toString() const{return NULL;}
+    virtual int compareTo(Object*) const{return -2;}
 };
 
 #endif
