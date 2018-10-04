@@ -84,6 +84,10 @@ int main(){
     DbManager* dbManager = DbManager::getInstance();
     dbManager->connect();
     dbManager->init();
+    
+    int i=0;
+    
+    while(i++<1){
 
     //create table
     dbManager->exec(Session::getSqliteStrTocreateTable(), 0);
@@ -182,8 +186,7 @@ int main(){
     sessionFromDb->loadActivities();
     cout << "Session From Db:" << sessionFromDb->toString() << endl;
     
-    //dbManager->disconnect();
-    DbManager::resetInstance();
+   
 
     delete listTraining;
     delete listShoes;
@@ -193,5 +196,10 @@ int main(){
     delete listSwim;
     delete listBreaks;
     delete listSession;
+        
+    }
+    
+    //dbManager->disconnect();
+    DbManager::resetInstance();
     return 0;
 }

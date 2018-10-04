@@ -1,5 +1,7 @@
 #include "Run.h"
 
+const string Run::TAG="RUN";
+
 Run::Run(Date* date, TrainingDuration du, Shoe s, float km):Training(date, du){
 	this->m_shoe=s;
     this->m_km=km;
@@ -115,4 +117,8 @@ int Run::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
     list->pushBack(r);
 
     return 0;
+}
+
+string Run::getTag()const{
+    return Run::TAG;
 }

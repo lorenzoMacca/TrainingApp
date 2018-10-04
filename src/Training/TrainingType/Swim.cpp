@@ -1,5 +1,7 @@
 #include "Swim.h"
 
+const string Swim::TAG="SWIM";
+
 Swim::Swim(Date* date, TrainingDuration du, float km):Training(date, du){
     this->m_km=km;
     this->m_id=-1;
@@ -90,4 +92,8 @@ int Swim::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char
     list->pushBack(swim);
 
     return 0;
+}
+
+string Swim::getTag()const{
+    return Swim::TAG;
 }

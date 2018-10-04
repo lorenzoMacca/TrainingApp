@@ -1,5 +1,7 @@
 #include "Training.h"
 
+const string Training::TAG="TRAINING";
+
 Training::Training(int id, Date* d, TrainingDuration t){
     this->m_date = d;
     this->m_trainingDuration = t;
@@ -124,4 +126,8 @@ int Training::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, 
 	Logger::getInstance()->log(Logger::INFO, "DbManager: Training instance created: " + t->toString() );
 	list->pushBack(t);
 	return 0;
+}
+
+string Training::getTag()const{
+    return Training::TAG;
 }

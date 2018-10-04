@@ -1,5 +1,7 @@
 #include "Abs.h"
 
+const string Abs::TAG="ABS";
+
 Abs::Abs(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id):Training(date, du){
     this->m_id = id;
     this->m_reps = reps;
@@ -118,4 +120,8 @@ int Abs::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char 
     Logger::getInstance()->log(Logger::INFO, "DbManager: ABS instance created: " + abs->toString() );
     list->pushBack(abs);
     return 0;
+}
+
+string Abs::getTag()const{
+    return Abs::TAG;
 }

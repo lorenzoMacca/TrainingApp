@@ -18,10 +18,13 @@ class Abs : public Training{
         Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
         ~Abs();
     
+        static const string TAG;
+    
         //from Training:
         virtual string toString() const;
         virtual int compareTo(Object*) const;
         Exercise& getExercise();
+        virtual string getTag()const;
     
         //from DbObject
         static string getSqliteStrTocreateTable();

@@ -20,6 +20,8 @@ protected:
     TrainingDuration m_trainingDuration;
 
 public:
+    static const string TAG;
+    
     Training(int id=-1, Date* d = 0, TrainingDuration t=0);
     Training(Date* , TrainingDuration);
     virtual ~Training();
@@ -31,6 +33,7 @@ public:
     string getComment()const;
     string toString(const Training*) const;
     virtual void setTrainingId(int idTraining);
+    virtual string getTag()const;
 
     //from Object
     virtual string toString() const;
