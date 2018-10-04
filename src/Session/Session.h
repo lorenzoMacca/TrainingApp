@@ -70,7 +70,6 @@ public:
     int _trainingId;
     int _idSession;
     
-    
     virtual string toString() const;
 };
 

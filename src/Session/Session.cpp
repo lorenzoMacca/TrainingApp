@@ -58,16 +58,17 @@ bool Session::loadActivities(){
     
     Algorithms* algorithms = new Algorithms();
     algorithms->insertionSort(sessionActivitiesList, Algorithms::ASC);
-    Logger::getInstance()->log(Logger::INFO, "Session-loadActivities: Activities: " + sessionActivitiesList->toString() );
     
     //get breaks
     Iterator* sessionIterator = sessionActivitiesList->getIterator();
     while(sessionIterator->hasNext()){
         SessionBreak* sB = dynamic_cast<SessionBreak*>(sessionIterator->getCurrentValue());
         SessionTraining* sT = dynamic_cast<SessionTraining*>(sessionIterator->getCurrentValue());
-        if(sB){
-            
-        }else if(sT){
+        if(sB){ // BREAK
+            List cond3;
+            cond3.pushBack(new WhereCondition("ID", std::to_string(sB->_breakId), "="));
+            dbManager->exec(Utils::getSqliteStrToGetRecords(Break::getSqliteStrToGetAllRecords(), cond3, "WHERE"), this->m_activities, Break::callbackAfterSelect);
+        }else if(sT){ // TRAINING
             
         }else{
             Logger::getInstance()->log(Logger::INFO, "Session-loadActivities: what?: " + sessionIterator->getCurrentValue()->toString() );

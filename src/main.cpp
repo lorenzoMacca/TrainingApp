@@ -178,9 +178,10 @@ int main(){
     //cout << Training::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), conditions, "and") << endl;
     
     //load all the activities related to
-    session.loadActivities();
+    Session* sessionFromDb = static_cast<Session*>(listSession->getValueLastElement());
+    sessionFromDb->loadActivities();
+    cout << "Session From Db:" << sessionFromDb->toString() << endl;
     
-
     //dbManager->disconnect();
     DbManager::resetInstance();
 
