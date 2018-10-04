@@ -42,6 +42,7 @@ public:
     //callback funcs
     static int callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName);
     static int callbackAfterSelectSessionTraining(void *list_Not_casted, int argc, char **argv, char **azColName);
+    static int callbackAfterSelectSessionBreak(void *list_Not_casted, int argc, char **argv, char **azColName);
     
 };
 
@@ -63,7 +64,7 @@ public:
     int _idSession;
     int _position;
     
-    virtual string toString() const{return NULL;}
+    virtual string toString() const;
     virtual int compareTo(Object*) const{return -2;}
 };
 

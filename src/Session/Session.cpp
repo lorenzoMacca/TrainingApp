@@ -40,6 +40,8 @@ bool Session::loadActivities(){
         return false;
     }
     DbManager* dbManager = DbManager::getInstance();
+    
+    //get sessionTraining
     List cond1;
     cond1.pushBack(new WhereCondition("SESSION.ID", std::to_string(this->m_id), "="));
     cond1.pushBack(new WhereCondition("SESSION.ID", "SESSION_TRAINING.ID_SESSION", "="));
@@ -47,6 +49,13 @@ bool Session::loadActivities(){
     string queryGetsessionTrainings = "select SESSION_TRAINING.ID AS SESSION_TRAINING_ID, SESSION_TRAINING.* from SESSION, SESSION_TRAINING";
     dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionTrainings, cond1, "WHERE"), sessionTrainingsList, Session::callbackAfterSelectSessionTraining);
     
+    //get sessionBreak
+    List cond2;
+    cond2.pushBack(new WhereCondition("SESSION.ID", std::to_string(this->m_id), "="));
+    cond2.pushBack(new WhereCondition("SESSION.ID", "SESSION_BREAK.ID_SESSION", "="));
+    List* sessionBreaksList = new List;
+    string queryGetsessionbreaks = "select SESSION_BREAK.ID AS SESSION_BREAK_ID, SESSION_BREAK.* from SESSION, SESSION_BREAK";
+    dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionbreaks, cond2, "WHERE"), sessionBreaksList, Session::callbackAfterSelectSessionBreak);
     
     return true;
 }
@@ -217,4 +226,39 @@ int Session::callbackAfterSelectSessionTraining(void *list_Not_casted, int argc,
     return 0;
 }
 
+string SessionBreak::toString() const{
+    stringstream res;
+    res <<  "[SessionBreak: "
+    << "ID: " << this->_id << " - "
+    << "ID_TRAINING: " << this->_breakId << " - "
+    << "ID_SESSION: " << this->_idSession << " - "
+    << "POSITION: " << this->_position
+    << "]";
+    return res.str();
+}
 
+int Session::callbackAfterSelectSessionBreak(void *list_Not_casted, int argc, char **argv, char **azColName) {
+    if(list_Not_casted == 0)
+        return 0;
+    List* list = static_cast<List*>(list_Not_casted);
+    
+    //SessionBreak
+    SessionBreak* sessionBreak = new SessionBreak;
+    
+    for(int i = 0; i<argc; i++) {
+        string columnNme(azColName[i]);
+        if(columnNme == "SESSION_BREAK_ID"){
+            sessionBreak->_id=stoi(argv[i]);
+        }else if(columnNme == "ID_BREAK"){
+            sessionBreak->_breakId=stoi(argv[i]);
+        }else if(columnNme == "ID_SESSION"){
+            sessionBreak->_idSession=stoi(argv[i]);
+        }else if(columnNme == "POSITION"){
+            sessionBreak->_position=stoi(argv[i]);
+        }
+    }
+    Logger::getInstance()->log(Logger::INFO, "DbManager: sessionBreak instance created: " + sessionBreak->toString() );
+    list->pushBack(sessionBreak);
+    
+    return 0;
+}
