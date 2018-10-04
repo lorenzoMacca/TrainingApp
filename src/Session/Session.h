@@ -28,7 +28,7 @@ public:
     bool addActivity(Object*);
     void saveAll();
     bool loadActivities();
-    string getSqliteStrToInsertSessionTraining(int id_session, int id_training, int position)const;
+    string getSqliteStrToInsertSessionTraining(int id_session, int id_training, int position, string s)const;
     string getSqliteStrToInsertSessionBreak(int id_session, int id_break, int position)const;
     
     //from Object
@@ -69,6 +69,7 @@ public:
     int _id;
     int _trainingId;
     int _idSession;
+    string _tag;
     
     virtual string toString() const;
 };

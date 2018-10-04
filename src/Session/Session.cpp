@@ -99,7 +99,7 @@ void Session::saveAll(){
             id_activity = dbManager->getLastID();
             t->setTrainingId(id_activity);
             dbManager->exec(t->getSqliteStrToInsert(), 0);
-            dbManager->exec(this->getSqliteStrToInsertSessionTraining(this->m_id, id_activity, currentPosition), 0);
+            dbManager->exec(this->getSqliteStrToInsertSessionTraining(this->m_id, id_activity, currentPosition, t->getTag()), 0);
         }if(b) {
             dbManager->exec(b->getSqliteStrToInsert(), 0);
             id_activity = dbManager->getLastID();
@@ -135,6 +135,7 @@ string Session::getSqliteStrTocreateTable(){
     << "ID_TRAINING INTEGER NOT NULL, "
     << "ID_SESSION INTEGER NOT NULL, "
     << "POSITION INTEGER NOT NULL, "
+    << "TAG TEXT NOT NULL, "
     << "FOREIGN KEY(ID_TRAINING) REFERENCES TRAINING(ID), "
     << "FOREIGN KEY(ID_SESSION) REFERENCES SESSION(ID)"
     <<");";
@@ -158,13 +159,14 @@ string Session::getSqliteStrToInsert()const{
     return sql.str();
 }
 
-string Session::getSqliteStrToInsertSessionTraining(int id_session, int id_training, int position)const{
+string Session::getSqliteStrToInsertSessionTraining(int id_session, int id_training, int position, string tag)const{
     stringstream sql;
-    sql << "INSERT INTO SESSION_TRAINING (ID_TRAINING, ID_SESSION, POSITION) "
+    sql << "INSERT INTO SESSION_TRAINING (ID_TRAINING, ID_SESSION, POSITION, TAG) "
     << "VALUES ("
     << id_training << ", "
     << id_session << ", "
-    << position
+    << position << ", "
+    << tag
     << ");";
     return sql.str();
 }
@@ -215,7 +217,8 @@ string SessionTraining::toString() const{
     << "ID: " << this->_id << " - "
     << "ID_TRAINING: " << this->_trainingId << " - "
     << "ID_SESSION: " << this->_idSession << " - "
-    << "POSITION: " << this->_position
+    << "POSITION: " << this->_position << " - "
+    << "TAG: " << this->_tag
     << "]";
     return res.str();
 }
@@ -238,6 +241,8 @@ int Session::callbackAfterSelectSessionTraining(void *list_Not_casted, int argc,
             sessionTraining->_idSession=stoi(argv[i]);
         }else if(columnNme == "POSITION"){
             sessionTraining->_position=stoi(argv[i]);
+        }else if(columnNme == "TAG"){
+            sessionTraining->_tag=argv[i];
         }
     }
     Logger::getInstance()->log(Logger::INFO, "DbManager: sessionTraining instance created: " + sessionTraining->toString() );
