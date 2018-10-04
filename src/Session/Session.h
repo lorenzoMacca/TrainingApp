@@ -10,6 +10,7 @@
 #include <string>
 #include <WhereCondition.h>
 #include <Utils.h>
+#include <Algorithms.h>
 
 class Session: public Object, DbObject{
 
@@ -46,26 +47,40 @@ public:
     
 };
 
-class SessionTraining: public Object{
+class PositionObject: public Object{
+    
+public:
+    int _position;
+    virtual string toString() const{return "";}
+    virtual int compareTo(Object* o) const{
+        PositionObject* pd = static_cast<PositionObject*>(o);
+        if(this->_position == pd->_position){
+            return 0;
+        }if (this->_position > pd->_position) {
+            return -1;
+        } else {
+            return 1;
+        }
+    };
+};
+
+class SessionTraining: public PositionObject{
 public:
     int _id;
     int _trainingId;
     int _idSession;
-    int _position;
+    
     
     virtual string toString() const;
-    virtual int compareTo(Object*) const{return -2;}
 };
 
-class SessionBreak: public Object{
+class SessionBreak: public PositionObject{
 public:
     int _id;
     int _breakId;
     int _idSession;
-    int _position;
     
     virtual string toString() const;
-    virtual int compareTo(Object*) const{return -2;}
 };
 
 #endif

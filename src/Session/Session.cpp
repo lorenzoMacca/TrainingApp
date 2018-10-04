@@ -40,22 +40,41 @@ bool Session::loadActivities(){
         return false;
     }
     DbManager* dbManager = DbManager::getInstance();
+    List* sessionActivitiesList = new List;
     
     //get sessionTraining
     List cond1;
     cond1.pushBack(new WhereCondition("SESSION.ID", std::to_string(this->m_id), "="));
     cond1.pushBack(new WhereCondition("SESSION.ID", "SESSION_TRAINING.ID_SESSION", "="));
-    List* sessionTrainingsList = new List;
     string queryGetsessionTrainings = "select SESSION_TRAINING.ID AS SESSION_TRAINING_ID, SESSION_TRAINING.* from SESSION, SESSION_TRAINING";
-    dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionTrainings, cond1, "WHERE"), sessionTrainingsList, Session::callbackAfterSelectSessionTraining);
+    dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionTrainings, cond1, "WHERE"), sessionActivitiesList, Session::callbackAfterSelectSessionTraining);
     
     //get sessionBreak
     List cond2;
     cond2.pushBack(new WhereCondition("SESSION.ID", std::to_string(this->m_id), "="));
     cond2.pushBack(new WhereCondition("SESSION.ID", "SESSION_BREAK.ID_SESSION", "="));
-    List* sessionBreaksList = new List;
     string queryGetsessionbreaks = "select SESSION_BREAK.ID AS SESSION_BREAK_ID, SESSION_BREAK.* from SESSION, SESSION_BREAK";
-    dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionbreaks, cond2, "WHERE"), sessionBreaksList, Session::callbackAfterSelectSessionBreak);
+    dbManager->exec(Utils::getSqliteStrToGetRecords(queryGetsessionbreaks, cond2, "WHERE"), sessionActivitiesList, Session::callbackAfterSelectSessionBreak);
+    
+    Algorithms* algorithms = new Algorithms();
+    algorithms->insertionSort(sessionActivitiesList, Algorithms::ASC);
+    Logger::getInstance()->log(Logger::INFO, "Session-loadActivities: Activities: " + sessionActivitiesList->toString() );
+    
+    //get breaks
+    Iterator* sessionIterator = sessionActivitiesList->getIterator();
+    while(sessionIterator->hasNext()){
+        SessionBreak* sB = dynamic_cast<SessionBreak*>(sessionIterator->getCurrentValue());
+        SessionTraining* sT = dynamic_cast<SessionTraining*>(sessionIterator->getCurrentValue());
+        if(sB){
+            
+        }else if(sT){
+            
+        }else{
+            Logger::getInstance()->log(Logger::INFO, "Session-loadActivities: what?: " + sessionIterator->getCurrentValue()->toString() );
+        }
+        ++(*sessionIterator);
+    }
+    delete sessionIterator;
     
     return true;
 }
