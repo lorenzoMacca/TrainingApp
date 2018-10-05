@@ -11,6 +11,9 @@
 #include <WhereCondition.h>
 #include <Utils.h>
 #include <Algorithms.h>
+#include <Run.h>
+#include <Abs.h>
+#include <Swim.h>
 
 class Session: public Object, DbObject{
 

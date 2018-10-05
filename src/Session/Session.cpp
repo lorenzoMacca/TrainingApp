@@ -59,17 +59,29 @@ bool Session::loadActivities(){
     Algorithms* algorithms = new Algorithms();
     algorithms->insertionSort(sessionActivitiesList, Algorithms::ASC);
     
+    cout << "PIPPO" << sessionActivitiesList->toString() << endl;
+    
     //get breaks
     Iterator* sessionIterator = sessionActivitiesList->getIterator();
     while(sessionIterator->hasNext()){
+        
         SessionBreak* sB = dynamic_cast<SessionBreak*>(sessionIterator->getCurrentValue());
         SessionTraining* sT = dynamic_cast<SessionTraining*>(sessionIterator->getCurrentValue());
         if(sB){ // BREAK
             List cond3;
             cond3.pushBack(new WhereCondition("ID", std::to_string(sB->_breakId), "="));
             dbManager->exec(Utils::getSqliteStrToGetRecords(Break::getSqliteStrToGetAllRecords(), cond3, "WHERE"), this->m_activities, Break::callbackAfterSelect);
-        }else if(sT){ // TRAINING
-            
+        }else if(sT){ // TRAINING+
+            List cond3;
+            cond3.pushBack(new WhereCondition("ID_TRAINING", std::to_string(sT->_trainingId), "="));
+            string tag = sT->_tag;
+            if(tag == Run::TAG){
+                dbManager->exec(Utils::getSqliteStrToGetRecords(Run::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, Run::callbackAfterSelect);
+            }else if(tag == Abs::TAG){
+                dbManager->exec(Utils::getSqliteStrToGetRecords(Abs::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, Abs::callbackAfterSelect);
+            }else if(tag == Swim::TAG){
+                dbManager->exec(Utils::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, Swim::callbackAfterSelect);
+            }
         }else{
             Logger::getInstance()->log(Logger::INFO, "Session-loadActivities: what?: " + sessionIterator->getCurrentValue()->toString() );
         }
@@ -166,7 +178,7 @@ string Session::getSqliteStrToInsertSessionTraining(int id_session, int id_train
     << id_training << ", "
     << id_session << ", "
     << position << ", "
-    << tag
+    << "'" << tag << "'"
     << ");";
     return sql.str();
 }
