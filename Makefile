@@ -6,21 +6,25 @@ LDFLAGS =
 BIN = ./bin
 OBJ = ./obj
 INC = ./inc
+LIB = ./lib
+INC_LIB = -L $(LIB)
 INC_PATH = -I $(INC) \
            -I ./ext/DataStructure
-INC_LIB = -L $(LIB)
-LIB = ./ext/DataStructure
+INC_EXT_LIB = -L $(EXT_LIB)
+EXT_LIB = ./ext/DataStructure
 DATA_STRUCTURE_LIB_NAME = dataStructure
 DATA_STRUCTURE_LIB = lib$(DATA_STRUCTURE_LIB_NAME).a
+TRAINING_LIB_NAME = training
+TRAINING_LIB = lib$(TRAINING_LIB_NAME).a
 
-OBJS = WhereCondition.o Session.o Break.o Swim.o Exercise.o Abs.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o main.o
+OBJS = WhereCondition.o Session.o Break.o Swim.o Exercise.o Abs.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o
 
 LIST_OBJS=$(addprefix $(OBJ)/, $(OBJS))
 
 default: $(PROG)
 
-$(PROG) : $(LIST_OBJS)
-	$(CC) $(LDFLAGS) $(LIST_OBJS) -o $(BIN)/$(PROG) $(INC_LIB) -l $(DATA_STRUCTURE_LIB_NAME) -l sqlite3
+$(PROG) : $(TRAINING_LIB) $(OBJ)/main.o
+	$(CC) $(LDFLAGS) -o $(BIN)/$(PROG) $(OBJ)/main.o $(INC_EXT_LIB) $(INC_LIB) -l $(DATA_STRUCTURE_LIB_NAME) -l sqlite3 -l $(TRAINING_LIB_NAME)
 
 $(OBJ)/main.o: src/main.cpp
 	$(CC) $(INC_PATH) $(CPPFLAGS) -c $< -o $@
@@ -72,6 +76,13 @@ $(OBJ)/Exercise.o: src/Training/TrainingType/Exercise.cpp
 
 $(OBJ)/Swim.o: src/Training/TrainingType/Swim.cpp
 	$(CC) $(CPPFLAGS) $(INC_PATH) -c $< -o $@
+
+create_training_lib: $(TRAINING_LIB)
+	@echo $(TRAINING_LIB) has been compiled.
+
+$(TRAINING_LIB): $(LIST_OBJS)
+	@echo Compiling $(TRAINING_LIB)  
+	$(AR) -r $(LIB)/$(TRAINING_LIB) $(LIST_OBJS)
 
 clean:
 	rm -dfr $(BIN)/*  $(OBJ)/* *.dSYM trainingApp
