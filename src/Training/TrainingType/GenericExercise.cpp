@@ -1,8 +1,8 @@
-#include "GenericExrercise.h"
+#include "GenericExercise.h"
 
-const string GenericExrercise::TAG="GenericExrercise";
+const string GenericExercise::TAG="GenericExercise";
 
-GenericExrercise::GenericExrercise(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id):Training(date, du){
+GenericExercise::GenericExercise(Date* date, TrainingDuration du, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id):Training(date, du){
     this->m_id = id;
     this->m_reps = reps;
     this->m_time = time;
@@ -10,18 +10,18 @@ GenericExrercise::GenericExrercise(Date* date, TrainingDuration du, unsigned int
     this->m_exercise = e;
 }
 
-GenericExrercise::~GenericExrercise(){
-    //Logger::getInstance()->log(Logger::INFO, "GenericExrercise: destructor called");
+GenericExercise::~GenericExercise(){
+    //Logger::getInstance()->log(Logger::INFO, "GenericExercise: destructor called");
 }
 
-Exercise& GenericExrercise::getExercise(){
+Exercise& GenericExercise::getExercise(){
     return this->m_exercise;
 }
 
 //from Training:
-string GenericExrercise::toString() const{
+string GenericExercise::toString() const{
     stringstream sstr;
-    sstr << "[GenericExrercise: "
+    sstr << "[GenericExercise: "
     << "ID: " << this->m_id << " - "
     << this->m_exercise.toString() << " - "
     << "Reps: " << this->m_reps << " - "
@@ -32,14 +32,14 @@ string GenericExrercise::toString() const{
     return sstr.str();
 }
 
-int GenericExrercise::compareTo(Object*) const{
+int GenericExercise::compareTo(Object*) const{
     return -2;
 }
 
 //from DbObject
-string GenericExrercise::getSqliteStrTocreateTable(){
+string GenericExercise::getSqliteStrTocreateTable(){
     stringstream sql;
-    sql << "CREATE TABLE GenericExrercise("
+    sql << "CREATE TABLE GenericExercise("
     << "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
     << "REPS INTEGER NOT NULL, "
     << "TIME INTEGER NOT NULL, "
@@ -52,9 +52,9 @@ string GenericExrercise::getSqliteStrTocreateTable(){
     return sql.str();
 }
 
-string GenericExrercise::getSqliteStrToInsert()const{
+string GenericExercise::getSqliteStrToInsert()const{
     stringstream sql;
-    sql << "INSERT INTO GenericExrercise (REPS, TIME, WEIGHT, ID_EXERCISE, ID_TRAINING) "
+    sql << "INSERT INTO GenericExercise (REPS, TIME, WEIGHT, ID_EXERCISE, ID_TRAINING) "
     << "VALUES ("
     << this->m_reps << ", "
     << this->m_time << ", "
@@ -65,11 +65,11 @@ string GenericExrercise::getSqliteStrToInsert()const{
     return sql.str();
 }
 
-string GenericExrercise::getSqliteStrToGetAllRecords(){
-     return "select GenericExrercise.ID AS GenericExrercise_ID, GenericExrercise.*, EXERCISE.ID AS EXERCISE_ID, EXERCISE.*, TRAINING.ID AS TRAINING_ID, TRAINING.* from GenericExrercise, EXERCISE, TRAINING where GenericExrercise.ID_EXERCISE = EXERCISE.ID AND GenericExrercise.ID_TRAINING=TRAINING.ID";
+string GenericExercise::getSqliteStrToGetAllRecords(){
+     return "select GenericExercise.ID AS GenericExercise_ID, GenericExercise.*, EXERCISE.ID AS EXERCISE_ID, EXERCISE.*, TRAINING.ID AS TRAINING_ID, TRAINING.* from GenericExercise, EXERCISE, TRAINING where GenericExercise.ID_EXERCISE = EXERCISE.ID AND GenericExercise.ID_TRAINING=TRAINING.ID";
 }
 
-int GenericExrercise::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
+int GenericExercise::callbackAfterSelect(void *list_Not_casted, int argc, char **argv, char **azColName) {
     // TRAINING_ID ID DATE DURATION COMMENT
     if(list_Not_casted == 0)
         return 0;
@@ -78,7 +78,7 @@ int GenericExrercise::callbackAfterSelect(void *list_Not_casted, int argc, char 
     int exerciseId = -1;
     string name = "";
     BodyPart bodyPart = NA;
-    int GenericExrerciseId = -1;
+    int genericExerciseId = -1;
     unsigned int reps = 0;
     unsigned int time = 0;
     unsigned int weight = 0;
@@ -95,8 +95,8 @@ int GenericExrercise::callbackAfterSelect(void *list_Not_casted, int argc, char 
             name=argv[i];
         }else if(columnNme == "EXERCISE_ID"){
             exerciseId=stoi(argv[i]);
-        }else if(columnNme == "GenericExrercise_ID"){
-            GenericExrerciseId=stoi(argv[i]);
+        }else if(columnNme == "GenericExercise_ID"){
+            genericExerciseId=stoi(argv[i]);
         }else if(columnNme == "REPS"){
             reps=stoi(argv[i]);
         }else if(columnNme == "TIME"){
@@ -115,13 +115,13 @@ int GenericExrercise::callbackAfterSelect(void *list_Not_casted, int argc, char 
     }
     Exercise e(exerciseId, bodyPart, name);
     TrainingDuration trainingDuration(timeDuration);
-    GenericExrercise *genericExrercise = new GenericExrercise(d, trainingDuration, reps, time, weight, e, GenericExrerciseId);
-    genericExrercise->setTrainingId(trainingId);
-    Logger::getInstance()->log(Logger::INFO, "DbManager: GenericExrercise instance created: " + genericExrercise->toString() );
-    list->pushBack(genericExrercise);
+    GenericExercise *genericExercise = new GenericExercise(d, trainingDuration, reps, time, weight, e, genericExerciseId);
+    genericExercise->setTrainingId(trainingId);
+    Logger::getInstance()->log(Logger::INFO, "DbManager: GenericExercise instance created: " + genericExercise->toString() );
+    list->pushBack(genericExercise);
     return 0;
 }
 
-string GenericExrercise::getTag()const{
-    return GenericExrercise::TAG;
+string GenericExercise::getTag()const{
+    return GenericExercise::TAG;
 }

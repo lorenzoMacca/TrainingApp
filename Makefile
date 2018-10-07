@@ -17,7 +17,7 @@ DATA_STRUCTURE_LIB = lib$(DATA_STRUCTURE_LIB_NAME).a
 TRAINING_LIB_NAME = training
 TRAINING_LIB = lib$(TRAINING_LIB_NAME).a
 
-OBJS = WhereCondition.o Session.o Break.o Swim.o Exercise.o GenericExrercise.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o
+OBJS = WhereCondition.o Session.o Break.o Swim.o Exercise.o GenericExercise.o UserData.o User.o Shoe.o Run.o Utils.o Date.o TrainingDuration.o Logger.o Training.o DbManager.o
 
 LIST_OBJS=$(addprefix $(OBJ)/, $(OBJS))
 
@@ -68,7 +68,7 @@ $(OBJ)/User.o: src/User/User.cpp
 $(OBJ)/UserData.o: src/User/UserData.cpp
 	$(CC) $(CPPFLAGS) $(INC_PATH) -c $< -o $@
 
-$(OBJ)/GenericExrercise.o: src/Training/TrainingType/GenericExrercise.cpp
+$(OBJ)/GenericExercise.o: src/Training/TrainingType/GenericExercise.cpp
 	$(CC) $(CPPFLAGS) $(INC_PATH) -c $< -o $@
 
 $(OBJ)/Exercise.o: src/Training/TrainingType/Exercise.cpp

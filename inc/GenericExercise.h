@@ -5,7 +5,7 @@
 #include <Logger.h>
 #include <Exercise.h>
 
-class GenericExrercise : public Training{
+class GenericExercise : public Training{
     private:
         int m_id;
         Exercise m_exercise;
@@ -14,8 +14,8 @@ class GenericExrercise : public Training{
         unsigned int m_weight;
     
     public:
-        GenericExrercise(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
-        ~GenericExrercise();
+        GenericExercise(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
+        ~GenericExercise();
     
         static const string TAG;
     

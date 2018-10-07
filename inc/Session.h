@@ -12,7 +12,7 @@
 #include <Utils.h>
 #include <Algorithms.h>
 #include <Run.h>
-#include <GenericExrercise.h>
+#include <GenericExercise.h>
 #include <Swim.h>
 
 class Session: public Object, DbObject{
