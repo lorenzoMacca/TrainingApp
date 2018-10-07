@@ -1,12 +1,11 @@
-#ifndef ABS_H
-#define ABS_H
+#ifndef GENERIC_EXERCISE_H
+#define GENERIC_EXERCISE_H
 
 #include <Training.h>
 #include <Logger.h>
-#include <Shoe.h>
 #include <Exercise.h>
 
-class Abs : public Training{
+class GenericExrercise : public Training{
     private:
         int m_id;
         Exercise m_exercise;
@@ -15,8 +14,8 @@ class Abs : public Training{
         unsigned int m_weight;
     
     public:
-        Abs(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
-        ~Abs();
+        GenericExrercise(Date*, TrainingDuration, unsigned int reps, unsigned int time, unsigned int weight, Exercise e, int id=-1);
+        ~GenericExrercise();
     
         static const string TAG;
     

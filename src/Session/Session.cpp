@@ -77,8 +77,8 @@ bool Session::loadActivities(){
             string tag = sT->_tag;
             if(tag == Run::TAG){
                 dbManager->exec(Utils::getSqliteStrToGetRecords(Run::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, Run::callbackAfterSelect);
-            }else if(tag == Abs::TAG){
-                dbManager->exec(Utils::getSqliteStrToGetRecords(Abs::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, Abs::callbackAfterSelect);
+            }else if(tag == GenericExrercise::TAG){
+                dbManager->exec(Utils::getSqliteStrToGetRecords(GenericExrercise::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, GenericExrercise::callbackAfterSelect);
             }else if(tag == Swim::TAG){
                 dbManager->exec(Utils::getSqliteStrToGetRecords(Swim::getSqliteStrToGetAllRecords(), cond3, "AND"), this->m_activities, Swim::callbackAfterSelect);
             }

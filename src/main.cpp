@@ -11,7 +11,7 @@
 #include <Run.h>
 #include <Shoe.h>
 #include <Exercise.h>
-#include <Abs.h>
+#include <GenericExrercise.h>
 #include <Swim.h>
 #include <Break.h>
 #include <Session.h>
@@ -95,7 +95,7 @@ int main(){
     dbManager->exec(Shoe::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Run::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Exercise::getSqliteStrTocreateTable(), 0);
-    dbManager->exec(Abs::getSqliteStrTocreateTable(), 0);
+    dbManager->exec(GenericExrercise::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Swim::getSqliteStrTocreateTable(), 0);
     dbManager->exec(Break::getSqliteStrTocreateTable(), 0);
     
@@ -128,8 +128,8 @@ int main(){
     unsigned idExercise = dbManager->getLastID();
     
     //insert Abs
-    Training *abs1 = new Abs(new Date(Date::getCurrentTime()), td, 0, 60, 0 , e);
-    ((Abs*)abs1)->getExercise().setId(idExercise);
+    Training *abs1 = new GenericExrercise(new Date(Date::getCurrentTime()), td, 0, 60, 0 , e);
+    ((GenericExrercise*)abs1)->getExercise().setId(idExercise);
     //dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
     //abs1->setTrainingId(dbManager->getLastID());
     //dbManager->exec(abs1->getSqliteStrToInsert(), 0);
@@ -163,7 +163,7 @@ int main(){
     dbManager->exec(Shoe::getSqliteStrToGetAllRecords(), listShoes, Shoe::callbackAfterSelect);
     dbManager->exec(Exercise::getSqliteStrToGetAllRecords(), listExercise, Exercise::callbackAfterSelect);
     dbManager->exec(Run::getSqliteStrToGetAllRecords(), listRun, Run::callbackAfterSelect);
-    dbManager->exec(Abs::getSqliteStrToGetAllRecords(), listAbs, Abs::callbackAfterSelect);
+    dbManager->exec(GenericExrercise::getSqliteStrToGetAllRecords(), listAbs, GenericExrercise::callbackAfterSelect);
     dbManager->exec(Swim::getSqliteStrToGetAllRecords(), listSwim, Swim::callbackAfterSelect);
     dbManager->exec(Break::getSqliteStrToGetAllRecords(), listBreaks, Break::callbackAfterSelect);
     dbManager->exec(Session::getSqliteStrToGetAllRecords(), listSession, Session::callbackAfterSelect);
