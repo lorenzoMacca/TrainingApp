@@ -85,4 +85,4 @@ $(TRAINING_LIB): $(LIST_OBJS)
 	$(AR) -r $(LIB)/$(TRAINING_LIB) $(LIST_OBJS)
 
 clean:
-	rm -dfr $(BIN)/*  $(OBJ)/* *.dSYM trainingApp
+	rm -dfr $(BIN)/* $(LIB)/*  $(OBJ)/* *.dSYM trainingApp

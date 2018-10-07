@@ -123,12 +123,16 @@ int main(){
     
     //insert Exercise
     BodyPart bodyPart = ABS;
-    Exercise e(-1, bodyPart, "Plank");
-    dbManager->exec(e.getSqliteStrToInsert(), 0);
+    BodyPart bodyPart2 = SQUAT;
+    Exercise plank(-1, bodyPart, "Plank");
+    Exercise squat(-1, bodyPart2, "Squat");
+    dbManager->exec(plank.getSqliteStrToInsert(), 0);
     unsigned idExercise = dbManager->getLastID();
+    dbManager->exec(squat.getSqliteStrToInsert(), 0);
+    unsigned idExercisesquat = dbManager->getLastID();
     
     //insert Abs
-    Training *abs1 = new GenericExercise(new Date(Date::getCurrentTime()), td, 0, 60, 0 , e);
+    Training *abs1 = new GenericExercise(new Date(Date::getCurrentTime()), td, 0, 60, 0 , plank);
     ((GenericExercise*)abs1)->getExercise().setId(idExercise);
     //dbManager->exec(abs1->Training::getSqliteStrToInsert(), 0);
     //abs1->setTrainingId(dbManager->getLastID());
@@ -140,11 +144,15 @@ int main(){
     //dbManager->exec(swim1->Training::getSqliteStrToInsert(), 0);
     //swim1->setTrainingId(dbManager->getLastID());
     //dbManager->exec(swim1->getSqliteStrToInsert(), 0);
+        
+    Training *squat1 = new GenericExercise(new Date(Date::getCurrentTime()), td, 0, 60, 0 , squat);
+    ((GenericExercise*)squat1)->getExercise().setId(idExercisesquat);
     
     session.addActivity(run);
     session.addActivity(break1);
     session.addActivity(abs1);
     session.addActivity(swim1);
+    session.addActivity(squat1);
     
     session.saveAll();
     

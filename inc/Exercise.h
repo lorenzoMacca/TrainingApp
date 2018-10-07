@@ -7,7 +7,7 @@
 #include <List.h>
 #include <Logger.h>
 
-enum BodyPart {NA, ABS};
+enum BodyPart {NA=0, ABS=1, SQUAT=2};
 
 class Exercise : public Object, DbObject{
     

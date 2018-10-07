@@ -79,6 +79,9 @@ bool Exercise::itoBodyPart(BodyPart* b, int i){
         case ABS:
             *b=ABS;
             return true;
+        case SQUAT:
+            *b=SQUAT;
+            return true;
     }
     stringstream ss;
     ss << i;
@@ -94,6 +97,9 @@ string Exercise::getBodyPartName(BodyPart b){
             break;
         case ABS:
             s =  "ABS";
+            break;
+        case SQUAT:
+            s = "SQUAT";
             break;
         default:
             stringstream ss;
